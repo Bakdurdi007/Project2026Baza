@@ -13,7 +13,7 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
@@ -31,6 +31,7 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    transition: background-color 0.3s;
 }
 
 .card-icon-circle i {
@@ -83,7 +84,33 @@
     color: var(--text-main, #111827);
 }
 
-/* Dark Mode uchun moslashuv */
+/* =========================================
+   MAHSULOT TUGAYOTGANINI BILDIRUVCHI QIZIL OGOHLANTIRISH STILLARI
+   ========================================= */
+.product-card.warning-red {
+    background: #fef2f2;
+    border-color: #fca5a5;
+}
+
+.product-card.warning-red .card-icon-circle {
+    background: #fee2e2;
+}
+
+.product-card.warning-red .card-icon-circle i {
+    color: #dc2626; /* Qizil ikonka */
+}
+
+.product-card.warning-red .product-title {
+    color: #991b1b;
+}
+
+.product-card.warning-red .stat-value {
+    color: #b91c1c;
+}
+
+/* =========================================
+   DARK MODE UCHUN STILLAR
+   ========================================= */
 [data-theme="dark"] .product-card {
     background: #1e293b;
     border-color: rgba(255, 255, 255, 0.1);
@@ -92,14 +119,21 @@
     background: rgba(37, 99, 235, 0.2);
 }
 
-/* Sementlar uchun kulrang */
+/* Dark Mode - Warning Red */
+[data-theme="dark"] .product-card.warning-red {
+    background: #450a0a;
+    border-color: #7f1d1d;
+}
+[data-theme="dark"] .product-card.warning-red .card-icon-circle {
+    background: #7f1d1d;
+}
+[data-theme="dark"] .product-card.warning-red .product-title,
+[data-theme="dark"] .product-card.warning-red .stat-value {
+    color: #fca5a5;
+}
+
+/* Ikonkalar ranglari (Standart holat uchun) */
 .ph-cube, .ph-cube-transparent { color: #64748b; }
-
-/* Toshlar uchun jigarrang/tabiiy rang */
 .ph-mountains, .ph-mountain { color: #92400e; }
-
-/* Kraskalar uchun yorqinroq rang */
 .ph-drop-half-bottom { color: #ef4444; }
-
-/* Ximikat uchun binafsha/ko'k */
 .ph-flask { color: #8b5cf6; }
