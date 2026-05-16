@@ -7,9 +7,12 @@
     --text-muted: #8b8b8b;
     --border-color: #eaeef3;
 
-    --primary-color: #4f46e5; /* Rasmdagidek to'q ko'k-binafsha */
+    --primary-color: #4f46e5;
     --primary-light: #eff0fe;
     --danger-color: #e74c3c;
+
+    /* Dinamik shrift o'lchami koeffitsiyenti */
+    --font-scale: 1.0;
 }
 
 [data-theme="dark"] {
@@ -30,13 +33,13 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s, font-size 0.1s;
 }
 
 body {
     background-color: var(--bg-body);
     color: var(--text-main);
-    overflow: hidden; /* Scroll faqat kerakli joyda bo'ladi */
+    overflow: hidden;
 }
 
 /* --- Asosiy Layout --- */
@@ -64,7 +67,7 @@ body {
 
 .brand-title {
     color: var(--primary-color);
-    font-size: 22px;
+    font-size: calc(22px * var(--font-scale));
     font-weight: 700;
 }
 
@@ -85,7 +88,7 @@ body {
     color: var(--text-muted);
     font-weight: 500;
     border-radius: 8px;
-    font-size: 15px;
+    font-size: calc(15px * var(--font-scale));
     cursor: pointer;
     background: transparent;
     border: none;
@@ -94,7 +97,7 @@ body {
 }
 
 .menu-item i {
-    font-size: 20px;
+    font-size: calc(20px * var(--font-scale));
 }
 
 .menu-item:hover {
@@ -139,7 +142,7 @@ body {
 }
 
 .page-title {
-    font-size: 24px;
+    font-size: calc(24px * var(--font-scale));
     font-weight: 600;
 }
 
@@ -149,7 +152,7 @@ body {
     gap: 15px;
 }
 
-/* Tugmalar va Badgelar (Rasmdagidek) */
+/* Tugmalar va Badgelar */
 .badge-btn, .user-badge {
     display: flex;
     align-items: center;
@@ -157,12 +160,13 @@ body {
     padding: 8px 16px;
     background-color: var(--bg-surface);
     border: 1px solid var(--border-color);
-    border-radius: 20px; /* Yumaloq shakl */
-    font-size: 14px;
+    border-radius: 20px;
+    font-size: calc(14px * var(--font-scale));
     font-weight: 500;
     color: var(--text-main);
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    user-select: none;
 }
 
 .badge-btn:hover {
@@ -170,8 +174,12 @@ body {
 }
 
 .badge-btn i {
-    color: #f39c12; /* Oy belgisi rangi */
-    font-size: 16px;
+    color: #f39c12;
+    font-size: calc(16px * var(--font-scale));
+}
+
+#langToggle i {
+    color: var(--primary-color); /* Tarjima ikonka rangi */
 }
 
 .user-badge {
@@ -181,7 +189,7 @@ body {
 .status-dot {
     width: 8px;
     height: 8px;
-    background-color: #2ecc71; /* Yashil nuqta */
+    background-color: #2ecc71;
     border-radius: 50%;
 }
 

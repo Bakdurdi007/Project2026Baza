@@ -26,7 +26,7 @@ const recipes = {
     "30 ga 30 seriy rang": { "Qora sement": 15, "Oq tosh": 19, "Qora tosh": 23, "Ximikat": 0.0345 }
 };
 
-// 3. Bazadagi ustun nomlari xaritasi (paving_stones_history jadvali uchun)
+// 3. Bazadagi ustun nomlari xaritasi
 const dbColumnsMap = {
     "Oq sement": "oq_sement", "Qora sement": "qora_sement", "Oq tosh": "oq_tosh",
     "Qora tosh": "qora_tosh", "Kraska 750": "kraska_750", "Kraska 313": "kraska_313",
@@ -57,22 +57,25 @@ async function fetchProductionHistory() {
 function renderTable(data) {
     productionTableBody.innerHTML = '';
     if (!data || data.length === 0) {
-        productionTableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Hozircha ma\'lumot yo\'q</td></tr>';
+        productionTableBody.innerHTML = `<tr><td colspan="5" style="text-align:center;">${window.translateText("Hozircha ma'lumot yo'q")}</td></tr>`;
         return;
     }
 
     data.forEach((item, index) => {
         const date = new Date(item.created_at).toLocaleString('uz-UZ');
-        // quantity_produced ustuni SQLda qo'shilgan bo'lishi kerak!
+        const displayedStoneName = window.translateText(item.paving_stones_name);
+        const unitKvm = window.translateText("kv.m");
+        const btnInfoText = window.translateText("Ma'lumot");
+
         const row = `
             <tr>
                 <td>${index + 1}</td>
-                <td><strong>${item.paving_stones_name}</strong></td>
-                <td><span style="color: #10b981; font-weight: bold;">${item.quantity_produced || 0} kv.m</span></td>
+                <td><strong>${displayedStoneName}</strong></td>
+                <td><span style="color: #10b981; font-weight: bold;">${item.quantity_produced || 0} ${unitKvm}</span></td>
                 <td style="color: #6b7280;">${date}</td>
                 <td>
                     <button class="info-btn" onclick="openInfoModal('${item.id}')">
-                        <i class="ph ph-info"></i> Ma'lumot
+                        <i class="ph ph-info"></i> ${btnInfoText}
                     </button>
                 </td>
             </tr>
@@ -88,12 +91,12 @@ productionForm.addEventListener('submit', async (e) => {
     const square = parseFloat(document.getElementById('stone_square').value);
 
     if (!stoneType || !square || square <= 0) {
-        alert("Iltimos, ma'lumotlarni to'g'ri kiriting!");
+        alert(window.translateText("Iltimos, ma'lumotlarni to'g'ri kiriting!"));
         return;
     }
 
     startBtn.disabled = true;
-    startBtn.textContent = "Jarayonda...";
+    startBtn.textContent = window.translateText("Jarayonda...");
 
     try {
         const recipe = recipes[stoneType];
@@ -102,7 +105,6 @@ productionForm.addEventListener('submit', async (e) => {
             requiredMaterials[matName] = parseFloat((valuePerMeter * square).toFixed(3));
         }
 
-        // A. Ombor (products) dagi qoldiqni tekshirish
         const { data: stockData, error: stockError } = await supabaseClient.from('products').select('*');
         if (stockError) throw stockError;
 
@@ -124,7 +126,7 @@ productionForm.addEventListener('submit', async (e) => {
             throw new Error("Xomashyo yetarli emas!");
         }
 
-        // B. Xomashyoni ayirish (Update products)
+        // B. Xomashyoni ayirish
         for (const [matName, used] of Object.entries(requiredMaterials)) {
             const currentItem = stockData.find(s => s.product_name === matName);
             const { error: updateErr } = await supabaseClient
@@ -134,8 +136,7 @@ productionForm.addEventListener('submit', async (e) => {
             if (updateErr) throw updateErr;
         }
 
-        // C. Tayyor mahsulot omborini (paving_stones) yangilash
-        // Diqqat: paving_stones jadvalida ustun nomi 'paving_stone_name' (singular)
+        // C. Tayyor mahsulot omborini yangilash
         const { data: stoneStock, error: stoneErr } = await supabaseClient
             .from('paving_stones')
             .select('*')
@@ -150,7 +151,6 @@ productionForm.addEventListener('submit', async (e) => {
                 .update({ paving_stone_square: stoneStock.paving_stone_square + square })
                 .eq('id', stoneStock.id);
         } else {
-            // Agar bazada bunday tur bo'lmasa, yangi qator qo'shish
             await supabaseClient
                 .from('paving_stones')
                 .insert([{
@@ -160,14 +160,12 @@ productionForm.addEventListener('submit', async (e) => {
                 }]);
         }
 
-        // D. Tarixga (paving_stones_history) yozish
-        // Diqqat: Sizning SQL'da ustun nomi 'paving_stones_name' (plural)
+        // D. Tarixga yozish
         let historyPayload = {
             paving_stones_name: stoneType,
             quantity_produced: square
         };
 
-        // Retseptdagi xomashyolarni SQL ustunlariga moslab payloadga qo'shish
         for (const [matName, used] of Object.entries(requiredMaterials)) {
             const dbCol = dbColumnsMap[matName];
             if (dbCol) historyPayload[dbCol] = used;
@@ -179,7 +177,7 @@ productionForm.addEventListener('submit', async (e) => {
 
         if (histError) throw histError;
 
-        alert("Muvaffaqiyatli yakunlandi!");
+        alert(window.translateText("Muvaffaqiyatli yakunlandi!"));
         productionForm.reset();
         fetchProductionHistory();
 
@@ -188,7 +186,7 @@ productionForm.addEventListener('submit', async (e) => {
         if (err.message !== "Xomashyo yetarli emas!") alert("Xato: " + err.message);
     } finally {
         startBtn.disabled = false;
-        startBtn.textContent = "Ishlab chiqarish";
+        startBtn.textContent = window.translateText("Ishlab chiqarish");
     }
 });
 
@@ -199,13 +197,15 @@ function openInfoModal(id) {
     listContainer.innerHTML = '';
 
     if (historyRow) {
+        const unitKg = window.translateText("kg");
         for (const [key, dbCol] of Object.entries(dbColumnsMap)) {
             const amount = historyRow[dbCol];
             if (amount && amount > 0) {
+                const translatedMatName = window.translateText(key);
                 listContainer.innerHTML += `
                     <li style="display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #eee;">
-                        <span>${key}</span>
-                        <span style="color: #ef4444; font-weight: bold;">-${amount} kg</span>
+                        <span>${translatedMatName}</span>
+                        <span style="color: #ef4444; font-weight: bold;">-${amount} ${unitKg}</span>
                     </li>`;
             }
         }
@@ -216,10 +216,14 @@ function openInfoModal(id) {
 function openWarningModal(shortages) {
     const listContainer = document.getElementById('warningMaterialList');
     listContainer.innerHTML = '';
+    const txtMissing = window.translateText("yetishmayapti");
+    const unitKg = window.translateText("kg");
+
     shortages.forEach(item => {
+        const translatedMatName = window.translateText(item.name);
         listContainer.innerHTML += `
             <li style="color: #b91c1c; padding: 5px 0;">
-                <strong>${item.name}</strong>: ${item.missing} kg yetishmayapti
+                <strong>${translatedMatName}</strong>: ${item.missing} ${unitKg} ${txtMissing}
             </li>`;
     });
     document.getElementById('warningModal').style.display = 'block';
@@ -229,8 +233,12 @@ function openWarningModal(shortages) {
 document.getElementById('closeInfoModal').onclick = () => document.getElementById('infoModal').style.display = 'none';
 document.getElementById('closeWarningModal').onclick = () => document.getElementById('warningModal').style.display = 'none';
 
-// Modal tashqarisiga bosilganda yopish
 window.onclick = (event) => {
     if (event.target == document.getElementById('infoModal')) document.getElementById('infoModal').style.display = 'none';
     if (event.target == document.getElementById('warningModal')) document.getElementById('warningModal').style.display = 'none';
 };
+
+// 6. Til o'zgarganda jadvalni ham dinamik yangilash hodisasi
+window.addEventListener('appLanguageChanged', () => {
+    renderTable(globalHistoryData);
+});

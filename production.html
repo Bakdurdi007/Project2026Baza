@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ishlab chiqarish</title>
+    <title data-translate="Ishlab chiqarish">Ishlab chiqarish</title>
     <link rel="stylesheet" href="css/admin_style.css">
     <link rel="stylesheet" href="css/warehouse_style.css">
     <link rel="stylesheet" href="css/production.css">
@@ -16,85 +16,89 @@
 <div class="app-layout">
     <aside class="sidebar">
         <div class="sidebar-header">
-            <h2 class="brand-title">Tizim 2026</h2>
+            <h2 class="brand-title" data-translate="Tizim 2026">Tizim 2026</h2>
         </div>
         <nav class="sidebar-menu">
-            <a href="admin_panel.html" class="menu-item"><i class="ph ph-squares-four"></i> Bosh sahifa</a>
-            <a href="warehouse_control.html" class="menu-item"><i class="ph ph-package"></i> Ombor nazorati</a>
-            <a href="production.html" class="menu-item active"><i class="ph ph-factory"></i> Ishlab chiqarish</a>
-            <a href="sales_and_revenue.html" class="menu-item"><i class="ph ph-shopping-cart"></i> Sotuv va Tushumlar</a>
-            <a href="reports.html" class="menu-item"><i class="ph ph-chart-line-up"></i> Hisobotlar</a>
+            <a href="admin_panel.html" class="menu-item"><i class="ph ph-squares-four"></i> <span data-translate="Bosh sahifa">Bosh sahifa</span></a>
+            <a href="warehouse_control.html" class="menu-item"><i class="ph ph-package"></i> <span data-translate="Ombor nazorati">Ombor nazorati</span></a>
+            <a href="production.html" class="menu-item active"><i class="ph ph-factory"></i> <span data-translate="Ishlab chiqarish">Ishlab chiqarish</span></a>
+            <a href="sales_and_revenue.html" class="menu-item"><i class="ph ph-shopping-cart"></i> <span data-translate="Sotuv va Tushumlar">Sotuv va Tushumlar</span></a>
+            <a href="reports.html" class="menu-item"><i class="ph ph-chart-line-up"></i> <span data-translate="Hisobotlar">Hisobotlar</span></a>
         </nav>
         <div class="sidebar-footer">
-            <button id="logoutBtn" class="menu-item logout-btn"><i class="ph ph-sign-out"></i> Chiqish</button>
+            <button id="logoutBtn" class="menu-item logout-btn"><i class="ph ph-sign-out"></i> <span data-translate="Chiqish">Chiqish</span></button>
         </div>
     </aside>
 
     <main class="main-content">
         <header class="topbar">
-            <h1 class="page-title">Admin Panel</h1>
+            <h1 class="page-title" data-translate="Admin Panel">Admin Panel</h1>
             <div class="topbar-actions">
+                <button id="fontDecrease" class="badge-btn" title="Shriftni kichiklashtirish">A-</button>
+                <button id="fontIncrease" class="badge-btn" title="Shriftni kattalashtirish">A+</button>
+
+                <button id="langToggle" class="badge-btn" title="Lotin / Кирилл">
+                    <i class="ph ph-translate" id="langIcon"></i>
+                </button>
+
                 <button id="themeToggle" class="badge-btn">
                     <i class="ph ph-moon" id="themeIcon"></i>
-                    <span id="themeText">Dark Mode</span>
+                    <span id="themeText" data-translate="Dark Mode">Dark Mode</span>
                 </button>
                 <div class="user-badge">
                     <span class="status-dot"></span>
-                    <span id="adminName">Yuklanmoqda...</span>
+                    <span id="adminName" data-translate="Yuklanmoqda...">Yuklanmoqda...</span>
                 </div>
             </div>
         </header>
 
         <div class="content-wrapper">
             <div class="warehouse-grid">
-                <!-- Chap tomon: Ishlab chiqarish formasi -->
                 <section class="form-section card">
-                    <h3 class="section-title">| Jarayonni boshlash</h3>
+                    <h3 class="section-title" data-translate="| Jarayonni boshlash">| Jarayonni boshlash</h3>
                     <form id="productionForm">
                         <div class="form-group">
-                            <label>Bruchatka turi</label>
+                            <label data-translate="Bruchatka turi">Bruchatka turi</label>
                             <select id="stone_type" required>
-                                <option value="" disabled selected>Tanlang...</option>
-                                <option value="Toshbaqa seriy rang">Toshbaqa seriy rang</option>
-                                <option value="Toshbaqa sariq rang">Toshbaqa sariq rang</option>
-                                <option value="Astana">Astana</option>
-                                <option value="Samarqand">Samarqand</option>
-                                <option value="Samarqand guli">Samarqand guli</option>
-                                <option value="Qosmos">Qo'smos</option>
-                                <option value="Fayz">Fayz</option>
-                                <option value="Samarqand och rang">Samarqand och rang</option>
-                                <option value="Ona bola malochnoy rang">Ona bola malochnoy rang</option>
-                                <option value="Ona bola oq rang">Ona bola oq rang</option>
-                                <option value="30 ga 15">30 ga 15</option>
-                                <option value="Qabamchik">Qabamchik</option>
-                                <option value="30 ga 30 qizil rang">30 ga 30 qizil rang</option>
-                                <option value="30 ga 30 seriy rang">30 ga 30 seriy rang</option>
+                                <option value="" disabled selected data-translate="Tanlang...">Tanlang...</option>
+                                <option value="Toshbaqa seriy rang" data-translate="Toshbaqa seriy rang">Toshbaqa seriy rang</option>
+                                <option value="Toshbaqa sariq rang" data-translate="Toshbaqa sariq rang">Toshbaqa sariq rang</option>
+                                <option value="Astana" data-translate="Astana">Astana</option>
+                                <option value="Samarqand" data-translate="Samarqand">Samarqand</option>
+                                <option value="Samarqand guli" data-translate="Samarqand guli">Samarqand guli</option>
+                                <option value="Qo'smos" data-translate="Qo'smos">Qo'smos</option>
+                                <option value="Fayz" data-translate="Fayz">Fayz</option>
+                                <option value="Samarqand och rang" data-translate="Samarqand och rang">Samarqand och rang</option>
+                                <option value="Ona bola malochnoy rang" data-translate="Ona bola malochnoy rang">Ona bola malochnoy rang</option>
+                                <option value="Ona bola oq rang" data-translate="Ona bola oq rang">Ona bola oq rang</option>
+                                <option value="30 ga 15" data-translate="30 ga 15">30 ga 15</option>
+                                <option value="Qabamchik" data-translate="Qabamchik">Qabamchik</option>
+                                <option value="30 ga 30 qizil rang" data-translate="30 ga 30 qizil rang">30 ga 30 qizil rang</option>
+                                <option value="30 ga 30 seriy rang" data-translate="30 ga 30 seriy rang">30 ga 30 seriy rang</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Ishlab chiqarish miqdori (Kvadrat metr)</label>
+                            <label data-translate="Ishlab chiqarish miqdori (Kvadrat metr)">Ishlab chiqarish miqdori (Kvadrat metr)</label>
                             <input type="number" step="0.01" id="stone_square" placeholder="0.00" required>
                         </div>
-                        <button type="submit" class="submit-btn" id="startBtn">Ishlab chiqarish</button>
+                        <button type="submit" class="submit-btn" id="startBtn" data-translate="Ishlab chiqarish">Ishlab chiqarish</button>
                     </form>
                 </section>
 
-                <!-- O'ng tomon: Ishlab chiqarilgan mahsulotlar ro'yxati -->
                 <section class="list-section card">
-                    <h3 class="section-title">| Ishlab chiqarilganlar</h3>
+                    <h3 class="section-title" data-translate="| Ishlab chiqarilganlar">| Ishlab chiqarilganlar</h3>
                     <div class="table-container">
                         <table>
                             <thead>
                             <tr>
                                 <th>№</th>
-                                <th>Bruchatka nomi</th>
-                                <th>Miqdori (kv.m)</th>
-                                <th>Sana</th>
-                                <th>Ma'lumot</th>
+                                <th data-translate="Bruchatka nomi">Bruchatka nomi</th>
+                                <th data-translate="Miqdori (kv.m)">Miqdori (kv.m)</th>
+                                <th data-translate="Sana">Sana</th>
+                                <th data-translate="Ma'lumot">Ma'lumot</th>
                             </tr>
                             </thead>
                             <tbody id="productionTableBody">
-                            <!-- Ma'lumotlar JS orqali keladi -->
                             </tbody>
                         </table>
                     </div>
@@ -104,23 +108,21 @@
     </main>
 </div>
 
-<!-- 1. Ma'lumot Modali (Tarixni ko'rish uchun) -->
 <div id="infoModal" class="modal">
     <div class="modal-content">
         <span class="close-btn" id="closeInfoModal">&times;</span>
-        <h3 style="color: var(--primary-color);">Sarflangan xomashyolar</h3>
+        <h3 style="color: var(--primary-color);" data-translate="Sarflangan xomashyolar">Sarflangan xomashyolar</h3>
         <ul class="material-list" id="modalMaterialList"></ul>
     </div>
 </div>
 
-<!-- 2. Ogohlantirish Modali (Xomashyo yetishmaganda) -->
 <div id="warningModal" class="modal">
     <div class="modal-content error-modal">
         <span class="close-btn" id="closeWarningModal">&times;</span>
         <h3 style="color: #ef4444; display: flex; align-items: center; gap: 8px;">
-            <i class="ph ph-warning-circle"></i> Xomashyo yetarli emas!
+            <i class="ph ph-warning-circle"></i> <span data-translate="Xomashyo yetarli emas!">Xomashyo yetarli emas!</span>
         </h3>
-        <p style="font-size: 13px; color: var(--text-muted); margin-top: 10px;">
+        <p style="margin-top: 10px;" class="warning-subtext" data-translate="Ushbu miqdordagi mahsulotni ishlab chiqarish uchun omborda quyidagi xomashyolar yetishmayapti:">
             Ushbu miqdordagi mahsulotni ishlab chiqarish uchun omborda quyidagi xomashyolar yetishmayapti:
         </p>
         <ul class="material-list" id="warningMaterialList"></ul>

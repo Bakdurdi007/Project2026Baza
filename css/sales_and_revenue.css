@@ -1,22 +1,23 @@
-/* Asosiy konteyner */
+/* ==========================================================================
+   1. EKRAN INTERFEYSI UCHUN GLOBAL VA RANG REJIMLARI STILLARI
+   ========================================================================== */
 .sales-container {
     display: grid;
     grid-template-columns: 450px 1fr;
     gap: 30px;
     align-items: start;
+    padding: 20px;
     padding-bottom: 40px;
 }
 
-/* Panellar - Oq rang (#ffffff) va Soya */
 .section-card {
-    background: #ffffff !important;
+    background: var(--bg-surface) !important;
     border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
     padding: 30px;
-    border: 1px solid #edf2f7;
+    border: 1px solid var(--border-color);
 }
 
-/* Chap tomon: Mahsulot kartasi */
 .product-display {
     display: flex;
     flex-direction: column;
@@ -25,13 +26,13 @@
 .img-placeholder {
     width: 100%;
     height: 270px;
-    background: #f8fafc;
+    background: var(--bg-body);
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 25px;
-    border: 1px dashed #cbd5e1;
+    border: 1px dashed var(--border-color);
     overflow: hidden;
 }
 
@@ -44,9 +45,9 @@
 }
 
 .product-info h2 {
-    font-size: 26px;
+    font-size: calc(24px * var(--font-scale));
     margin-bottom: 20px;
-    color: #1a202c;
+    color: var(--text-main);
     font-weight: 700;
 }
 
@@ -58,26 +59,48 @@
 }
 
 .info-box {
-    background: #f1f5f9;
+    background: var(--bg-body);
     padding: 15px;
     border-radius: 12px;
+    border: 1px solid var(--border-color);
 }
 
-.info-box span { font-size: 12px; color: #718096; display: block; margin-bottom: 5px; }
-.info-box strong { font-size: 18px; color: #2d3748; }
+.info-box span {
+    font-size: calc(12px * var(--font-scale));
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 5px;
+}
 
-.input-field label { display: block; margin-bottom: 10px; font-weight: 600; color: #4a5568; }
+.info-box strong {
+    font-size: calc(17px * var(--font-scale));
+    color: var(--text-main);
+}
+
+.input-field label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: calc(14px * var(--font-scale));
+}
+
 .input-field input {
     width: 100%;
     padding: 15px;
-    border: 2px solid #edf2f7;
+    border: 2px solid var(--border-color);
+    background-color: var(--bg-surface);
+    color: var(--text-main);
     border-radius: 10px;
-    font-size: 18px;
+    font-size: calc(16px * var(--font-scale));
     margin-bottom: 25px;
     transition: 0.3s;
+    outline: none;
 }
 
-.input-field input:focus { border-color: #4f46e5; outline: none; background: #fff; }
+.input-field input:focus {
+    border-color: var(--primary-color);
+}
 
 .action-buttons {
     display: flex;
@@ -95,14 +118,29 @@
     justify-content: center;
     gap: 10px;
     border: none;
-    font-size: 15px;
+    font-size: calc(15px * var(--font-scale));
+    transition: 0.3s;
 }
 
-.btn-outline { background: #f7fafc; color: #4a5568; border: 1px solid #e2e8f0; }
-.btn-outline:hover { background: #edf2f7; }
+.btn-outline {
+    background: var(--bg-body);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+}
 
-.btn-fill { background: #4f46e5; color: white; }
-.btn-fill:hover { background: #4338ca; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4); }
+.btn-outline:hover {
+    filter: brightness(0.95);
+}
+
+.btn-fill {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-fill:hover {
+    filter: brightness(0.9);
+    transform: translateY(-2px);
+}
 
 .carousel-controls {
     display: flex;
@@ -115,24 +153,35 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: none;
-    background: #ffffff;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border: 1px solid var(--border-color);
+    background: var(--bg-surface);
+    color: var(--text-main);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     cursor: pointer;
-    font-size: 24px;
+    font-size: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: 0.3s;
 }
 
-.circle-btn:hover { background: #4f46e5; color: white; transform: scale(1.1); }
+.circle-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: scale(1.05);
+}
 
 .card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 25px;
+}
+
+.card-header h3 {
+    margin: 0;
+    font-size: calc(16px * var(--font-scale));
+    color: var(--text-main);
 }
 
 .print-btn {
@@ -143,111 +192,150 @@
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
+    font-size: calc(14px * var(--font-scale));
+    transition: 0.3s;
 }
 
-.modern-table { width: 100%; border-collapse: collapse; }
-.modern-table th { text-align: left; padding: 15px; color: #a0aec0; border-bottom: 2px solid #f7fafc; font-size: 13px; text-transform: uppercase; }
-.modern-table td { padding: 20px 15px; border-bottom: 1px solid #f7fafc; font-size: 15px; }
+.print-btn:hover {
+    filter: brightness(0.9);
+}
+
+.modern-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.modern-table th {
+    text-align: left;
+    padding: 15px;
+    color: var(--text-muted);
+    border-bottom: 2px solid var(--border-color);
+    font-size: calc(12px * var(--font-scale));
+    text-transform: uppercase;
+}
+
+.modern-table td {
+    padding: 18px 15px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: calc(14px * var(--font-scale));
+    color: var(--text-main);
+}
 
 .total-bar {
     margin-top: 30px;
     padding-top: 25px;
-    border-top: 2px dashed #edf2f7;
+    border-top: 2px dashed var(--border-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: var(--text-main);
 }
 
-.total-bar h2 { color: #1a202c; font-size: 28px; font-weight: 800; }
-.text-red { color: #e53e3e; background: none; border: none; cursor: pointer; font-size: 20px; }
+.total-bar span {
+    font-size: calc(15px * var(--font-scale));
+}
 
+.total-bar h2 {
+    color: var(--text-main);
+    font-size: calc(26px * var(--font-scale));
+    font-weight: 800;
+    margin: 0;
+}
 
-/* =========================================
-   CHEK CHOP ETISH STILLARI (80MM XPRINTER)
-   ========================================= */
+.text-red {
+    color: #ef4444;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-/* Oddiy holatda yashirin turadi */
+/* ==========================================================================
+   2. CHEK CHOP ETISH STILLARI (80MM XPRINTER STANDARTI)
+   ========================================================================== */
 .receipt-print-zone {
     display: none;
 }
 
 @media print {
-    /* Sahifadagi hamma narsani yashirish */
     body * {
-        visibility: hidden;
+        visibility: hidden !important;
     }
 
-    /* Faqat chek hududini ko'rsatish */
     .receipt-print-zone, .receipt-print-zone * {
-        visibility: visible;
+        visibility: visible !important;
     }
 
     .receipt-print-zone {
         position: absolute;
         left: 0;
         top: 0;
-        width: 76mm; /* 80mm qog'oz uchun optimal kenglik (chetlari kesilmasligi uchun) */
+        width: 74mm;
         padding: 0;
         margin: 0;
-        font-family: 'Courier New', Courier, monospace; /* Kassa cheki shrifti */
-        font-size: 13px;
-        color: #000;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 12px;
+        color: #000000 !important;
+        background: #ffffff !important;
     }
 
     .receipt-header {
         text-align: center;
-        margin-bottom: 10px;
-        border-bottom: 1px dashed #000;
+        margin-bottom: 12px;
+        border-bottom: 1px dashed #000000;
         padding-bottom: 10px;
     }
 
     .receipt-header h2 {
         margin: 0;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: bold;
     }
 
     .receipt-header p {
-        margin: 5px 0 0;
-        font-size: 12px;
+        margin: 4px 0 0;
+        font-size: 11px;
     }
 
     .receipt-item {
         margin-bottom: 8px;
-        padding-bottom: 5px;
-        border-bottom: 1px dotted #ccc;
+        padding-bottom: 6px;
+        border-bottom: 1px dotted #aaaaaa;
     }
 
     .receipt-item-name {
         font-weight: bold;
-        margin-bottom: 4px;
-        font-size: 14px;
+        margin-bottom: 3px;
+        font-size: 13px;
     }
 
     .receipt-item-details {
         display: flex;
         justify-content: space-between;
-        font-size: 12px;
+        font-size: 11px;
     }
 
     .receipt-total {
         margin-top: 10px;
-        border-top: 1px dashed #000;
-        padding-top: 10px;
+        border-top: 1px dashed #000000;
+        padding-top: 8px;
         text-align: right;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: bold;
     }
 
     .receipt-footer {
         text-align: center;
         margin-top: 15px;
-        font-size: 12px;
-        border-top: 1px dashed #000;
-        padding-top: 10px;
+        font-size: 11px;
+        border-top: 1px dashed #000000;
+        padding-top: 8px;
     }
 
     @page {
-        margin: 0; /* Printer standart hoshiyalarini o'chirish */
+        margin: 0;
     }
 }

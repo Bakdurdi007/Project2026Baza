@@ -13,7 +13,7 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s, font-size 0.1s;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
@@ -35,7 +35,7 @@
 }
 
 .card-icon-circle i {
-    font-size: 40px;
+    font-size: calc(40px * var(--font-scale));
     color: var(--primary-color, #2563eb);
 }
 
@@ -44,7 +44,7 @@
 }
 
 .product-title {
-    font-size: 1.25rem;
+    font-size: calc(1.25rem * var(--font-scale));
     font-weight: 700;
     color: var(--text-main, #1f2937);
     margin-bottom: 12px;
@@ -72,16 +72,24 @@
 
 .stat-label {
     display: block;
-    font-size: 0.75rem;
+    font-size: calc(0.75rem * var(--font-scale));
     color: var(--text-muted, #6b7280);
     margin-bottom: 2px;
 }
 
 .stat-value {
     display: block;
-    font-size: 1rem;
+    font-size: calc(1rem * var(--font-scale));
     font-weight: 600;
     color: var(--text-main, #111827);
+}
+
+.loader, .no-data, .error {
+    font-size: calc(1.1rem * var(--font-scale));
+    font-weight: 500;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
 }
 
 /* =========================================
@@ -97,7 +105,7 @@
 }
 
 .product-card.warning-red .card-icon-circle i {
-    color: #dc2626; /* Qizil ikonka */
+    color: #dc2626;
 }
 
 .product-card.warning-red .product-title {
@@ -132,7 +140,7 @@
     color: #fca5a5;
 }
 
-/* Ikonkalar ranglari (Standart holat uchun) */
+/* Ikonkalar ranglari */
 .ph-cube, .ph-cube-transparent { color: #64748b; }
 .ph-mountains, .ph-mountain { color: #92400e; }
 .ph-drop-half-bottom { color: #ef4444; }

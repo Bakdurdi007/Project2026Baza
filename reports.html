@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hisobotlar | Tizim 2026</title>
+    <title data-translate="Hisobotlar | Tizim 2026">Hisobotlar | Tizim 2026</title>
     <link rel="stylesheet" href="css/admin_style.css">
     <link rel="stylesheet" href="css/reports.css">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -14,31 +14,38 @@
 <div class="app-layout">
     <aside class="sidebar">
         <div class="sidebar-header">
-            <h2 class="brand-title">Tizim 2026</h2>
+            <h2 class="brand-title" data-translate="Tizim 2026">Tizim 2026</h2>
         </div>
         <nav class="sidebar-menu">
-            <a href="admin_panel.html" class="menu-item"><i class="ph ph-squares-four"></i> Bosh sahifa</a>
-            <a href="warehouse_control.html" class="menu-item"><i class="ph ph-package"></i> Ombor nazorati</a>
-            <a href="production.html" class="menu-item"><i class="ph ph-factory"></i> Ishlab chiqarish</a>
-            <a href="sales_and_revenue.html" class="menu-item"><i class="ph ph-shopping-cart"></i> Sotuv va Tushumlar</a>
-            <a href="reports.html" class="menu-item active"><i class="ph ph-chart-line-up"></i> Hisobotlar</a>
+            <a href="admin_panel.html" class="menu-item"><i class="ph ph-squares-four"></i> <span data-translate="Bosh sahifa">Bosh sahifa</span></a>
+            <a href="warehouse_control.html" class="menu-item"><i class="ph ph-package"></i> <span data-translate="Ombor nazorati">Ombor nazorati</span></a>
+            <a href="production.html" class="menu-item"><i class="ph ph-factory"></i> <span data-translate="Ishlab chiqarish">Ishlab chiqarish</span></a>
+            <a href="sales_and_revenue.html" class="menu-item"><i class="ph ph-shopping-cart"></i> <span data-translate="Sotuv va Tushumlar">Sotuv va Tushumlar</span></a>
+            <a href="reports.html" class="menu-item active"><i class="ph ph-chart-line-up"></i> <span data-translate="Hisobotlar">Hisobotlar</span></a>
         </nav>
         <div class="sidebar-footer">
-            <button id="logoutBtn" class="menu-item logout-btn"><i class="ph ph-sign-out"></i> Chiqish</button>
+            <button id="logoutBtn" class="menu-item logout-btn"><i class="ph ph-sign-out"></i> <span data-translate="Chiqish">Chiqish</span></button>
         </div>
     </aside>
 
     <main class="main-content">
         <header class="topbar">
-            <h1 class="page-title">Moliyaviy va Ombor Hisobotlari</h1>
+            <h1 class="page-title" data-translate="Moliyaviy va Ombor Hisobotlari">Moliyaviy va Ombor Hisobotlari</h1>
             <div class="topbar-actions">
+                <button id="fontDecrease" class="badge-btn" title="Shriftni kichiklashtirish">A-</button>
+                <button id="fontIncrease" class="badge-btn" title="Shriftni kattalashtirish">A+</button>
+
+                <button id="langToggle" class="badge-btn" title="Lotin / Кирилл">
+                    <i class="ph ph-translate" id="langIcon"></i>
+                </button>
+
                 <button id="themeToggle" class="badge-btn">
                     <i class="ph ph-moon" id="themeIcon"></i>
-                    <span id="themeText">Dark Mode</span>
+                    <span id="themeText" data-translate="Dark Mode">Dark Mode</span>
                 </button>
                 <div class="user-badge">
                     <span class="status-dot"></span>
-                    <span id="adminName">Yuklanmoqda...</span>
+                    <span id="adminName" data-translate="Yuklanmoqda...">Yuklanmoqda...</span>
                 </div>
             </div>
         </header>
@@ -48,52 +55,52 @@
 
                 <div class="report-card">
                     <div class="report-card-header">
-                        <h3><i class="ph ph-trend-down"></i> KELIB TUSHGAN XOMASHYOLAR HISOBOTI</h3>
+                        <h3><i class="ph ph-trend-down"></i> <span data-translate="KELIB TUSHGAN XOMASHYOLAR HISOBOTI">KELIB TUSHGAN XOMASHYOLAR HISOBOTI</span></h3>
                     </div>
                     <div class="report-card-body">
                         <div class="date-group">
-                            <label>Boshlanish sanasi</label>
+                            <label data-translate="Boshlanish sanasi">Boshlanish sanasi</label>
                             <input type="date" id="start-date-1">
                         </div>
                         <div class="date-group">
-                            <label>Tugash sanasi</label>
+                            <label data-translate="Tugash sanasi">Tugash sanasi</label>
                             <input type="date" id="end-date-1">
                         </div>
-                        <button class="btn-report" onclick="generateReport('materials')">Hisobot</button>
+                        <button class="btn-report" onclick="generateReport('materials')" data-translate="Hisobot">Hisobot</button>
                     </div>
                 </div>
 
                 <div class="report-card">
                     <div class="report-card-header">
-                        <h3><i class="ph ph-factory"></i> ISHLAB CHIQARILGAN MAHSULOTLAR HISOBOTI</h3>
+                        <h3><i class="ph ph-factory"></i> <span data-translate="ISHLAB CHIQARILGAN MAHSULOTLAR HISOBOTI">ISHLAB CHIQARILGAN MAHSULOTLAR HISOBOTI</span></h3>
                     </div>
                     <div class="report-card-body">
                         <div class="date-group">
-                            <label>Boshlanish sanasi</label>
+                            <label data-translate="Boshlanish sanasi">Boshlanish sanasi</label>
                             <input type="date" id="start-date-2">
                         </div>
                         <div class="date-group">
-                            <label>Tugash sanasi</label>
+                            <label data-translate="Tugash sanasi">Tugash sanasi</label>
                             <input type="date" id="end-date-2">
                         </div>
-                        <button class="btn-report" onclick="generateReport('production')">Hisobot</button>
+                        <button class="btn-report" onclick="generateReport('production')" data-translate="Hisobot">Hisobot</button>
                     </div>
                 </div>
 
                 <div class="report-card">
                     <div class="report-card-header">
-                        <h3><i class="ph ph-money"></i> SOTILGAN MAHSULOTLAR (TUSHUM) HISOBOTI</h3>
+                        <h3><i class="ph ph-money"></i> <span data-translate="SOTILGAN MAHSULOTLAR (TUSHUM) HISOBOTI">SOTILGAN MAHSULOTLAR (TUSHUM) HISOBOTI</span></h3>
                     </div>
                     <div class="report-card-body">
                         <div class="date-group">
-                            <label>Boshlanish sanasi</label>
+                            <label data-translate="Boshlanish sanasi">Boshlanish sanasi</label>
                             <input type="date" id="start-date-3">
                         </div>
                         <div class="date-group">
-                            <label>Tugash sanasi</label>
+                            <label data-translate="Tugash sanasi">Tugash sanasi</label>
                             <input type="date" id="end-date-3">
                         </div>
-                        <button class="btn-report" onclick="generateReport('sales')">Hisobot</button>
+                        <button class="btn-report" onclick="generateReport('sales')" data-translate="Hisobot">Hisobot</button>
                     </div>
                 </div>
 
@@ -102,8 +109,7 @@
     </main>
 </div>
 
-<div id="printArea" class="a4-print-zone">
-</div>
+<div id="printArea" class="a4-print-zone"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/admin_script.js"></script>

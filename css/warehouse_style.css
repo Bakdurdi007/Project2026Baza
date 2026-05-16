@@ -3,17 +3,19 @@
     grid-template-columns: 350px 1fr;
     gap: 25px;
     align-items: start;
+    padding: 20px;
 }
 
 .card {
     background-color: var(--bg-surface);
     border-radius: 12px;
     padding: 24px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    border: 1px solid var(--border-color);
 }
 
 .section-title {
-    font-size: 18px;
+    font-size: calc(18px * var(--font-scale));
     font-weight: 700;
     margin-bottom: 25px;
     color: var(--primary-color);
@@ -26,7 +28,7 @@
 
 .form-group label {
     display: block;
-    font-size: 13px;
+    font-size: calc(13px * var(--font-scale));
     font-weight: 600;
     margin-bottom: 8px;
     color: var(--text-muted);
@@ -40,6 +42,12 @@
     color: var(--text-main);
     border-radius: 8px;
     outline: none;
+    font-size: calc(14px * var(--font-scale));
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus, .form-group select:focus {
+    border-color: var(--primary-color);
 }
 
 .submit-btn {
@@ -52,6 +60,17 @@
     font-weight: 600;
     cursor: pointer;
     margin-top: 10px;
+    font-size: calc(15px * var(--font-scale));
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submit-btn:hover {
+    filter: brightness(0.9);
+}
+
+.submit-btn:disabled {
+    background-color: var(--text-muted);
+    cursor: not-allowed;
 }
 
 /* Jadval dizayni */
@@ -67,16 +86,19 @@ table {
 th {
     text-align: left;
     padding: 15px;
-    font-size: 13px;
+    font-size: calc(13px * var(--font-scale));
     color: var(--text-muted);
-    border-bottom: 1px solid var(--border-color);
-    background-color: var(--primary-light);
+    border-bottom: 2px solid var(--border-color);
+    background-color: var(--bg-body);
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
 td {
     padding: 15px;
-    font-size: 14px;
+    font-size: calc(14px * var(--font-scale));
     border-bottom: 1px solid var(--border-color);
+    color: var(--text-main);
     font-weight: 500;
 }
 
@@ -84,7 +106,16 @@ tr:hover {
     background-color: var(--bg-body);
 }
 
-/* Dark mode moslashuvi */
+/* Maxsus holat dizaynlari */
+.text-massa {
+    color: #2563eb;
+    font-weight: bold;
+}
+
+[data-theme="dark"] .text-massa {
+    color: #60a5fa;
+}
+
 [data-theme="dark"] .card {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }

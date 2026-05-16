@@ -1,4 +1,4 @@
-// Supabase sozlamalari
+// Supabase Loyiha Sozlamalari (Loyiha standarti: supabaseClient)
 const SUPABASE_URL = 'https://xnyzlfzosefqvmqqrhnw.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhueXpsZnpvc2VmcXZtcXFyaG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyNDM4MDQsImV4cCI6MjA4ODgxOTgwNH0.MQxKiR1T_cFlNFk_f4s3CkOOW8wMAawpkQf3Zh8PIJE';
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -6,7 +6,7 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_
 const materialForm = document.getElementById('materialForm');
 const materialsTableBody = document.getElementById('materialsTableBody');
 
-// 1. Sahifa yuklanganda products_history jadvalidan tarixni ko'rsatamiz
+// Sahifa yuklanganda products_history jadvalidan tarixni ko'rsatish
 document.addEventListener('DOMContentLoaded', fetchHistory);
 
 async function fetchHistory() {
@@ -23,14 +23,22 @@ async function fetchHistory() {
     renderHistoryTable(data);
 }
 
-// 2. Tarix jadvalini chizish
+// Tarix jadvalini ko'p tilli tizim asosida chizish
 function renderHistoryTable(data) {
     materialsTableBody.innerHTML = '';
 
     if (!data || data.length === 0) {
-        materialsTableBody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Hozircha xomashyo kiritilmagan</td></tr>';
+        materialsTableBody.innerHTML = `
+            <tr>
+                <td colspan="6" style="text-align:center;" data-translate="Hozircha xomashyo kiritilmagan">
+                    ${window.translateText("Hozircha xomashyo kiritilmagan")}
+                </td>
+            </tr>`;
         return;
     }
+
+    const txtSom = window.translateText("so'm");
+    const txtKg = window.translateText("kg");
 
     data.forEach(item => {
         const date = item.created_at ? new Date(item.created_at).toLocaleString('uz-UZ') : '---';
@@ -38,10 +46,10 @@ function renderHistoryTable(data) {
         const row = `
             <tr>
                 <td>${item.id}</td>
-                <td><strong>${item.product_name}</strong></td>
-                <td><span style="color: #2563eb; font-weight: bold;">${item.product_massa} kg</span></td>
-                <td>${Number(item.product_price_per_1kg).toLocaleString()} so'm</td>
-                <td>${Number(item.product_price).toLocaleString()} so'm</td>
+                <td><strong>${window.translateText(item.product_name)}</strong></td>
+                <td><span class="text-massa">${item.product_massa.toLocaleString('uz-UZ')} ${txtKg}</span></td>
+                <td>${Number(item.product_price_per_1kg).toLocaleString('uz-UZ')} ${txtSom}</td>
+                <td>${Number(item.product_price).toLocaleString('uz-UZ')} ${txtSom}</td>
                 <td>${date}</td>
             </tr>
         `;
@@ -49,7 +57,7 @@ function renderHistoryTable(data) {
     });
 }
 
-// 3. Formani saqlash mantiqi
+// Xomashyoni saqlash hamda hisoblash mantig'i
 materialForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const saveBtn = document.getElementById('saveBtn');
@@ -58,11 +66,11 @@ materialForm.addEventListener('submit', async (e) => {
     const massa = parseFloat(document.getElementById('mat_stock').value);
     const pricePerKg = parseFloat(document.getElementById('mat_cost').value);
 
-    // product_price = product_massa * product_price_per_1kg
+    // Umumiy summani hisoblash
     const totalPrice = Math.round(massa * pricePerKg);
 
     saveBtn.disabled = true;
-    saveBtn.textContent = "Saqlanmoqda...";
+    saveBtn.textContent = window.translateText("Saqlanmoqda...");
 
     try {
         // A. Tarixga yozish (products_history jadvaliga)
@@ -77,7 +85,7 @@ materialForm.addEventListener('submit', async (e) => {
 
         if (historyError) throw historyError;
 
-        // B. Umumiy qoldiqni yangilash (products jadvalida)
+// B. Umumiy qoldiqni yangilash yoki yangi qo'shish (products jadvalida)
         const { data: current, error: fetchError } = await supabaseClient
             .from('products')
             .select('*')
@@ -87,7 +95,7 @@ materialForm.addEventListener('submit', async (e) => {
         if (fetchError) throw fetchError;
 
         if (current) {
-            // Mavjud mahsulotni yangilash
+            // Mavjud xomashyo hajmini yangilash
             const newTotalMassa = parseFloat(current.product_massa || 0) + massa;
             const newTotalPrice = parseFloat(current.product_price || 0) + totalPrice;
 
@@ -101,7 +109,7 @@ materialForm.addEventListener('submit', async (e) => {
 
             if (updateError) throw updateError;
         } else {
-            // Yangi mahsulot qo'shish
+            // Yangi turdagi xomashyoni bazaga birinchi marta kiritish
             const { error: insertError } = await supabaseClient
                 .from('products')
                 .insert([{
@@ -115,13 +123,13 @@ materialForm.addEventListener('submit', async (e) => {
 
         materialForm.reset();
         await fetchHistory();
-        alert("Ma'lumotlar saqlandi!");
+        alert(window.translateText("Ma'lumotlar muvaffaqiyatli saqlandi!"));
 
     } catch (err) {
         console.error("Xatolik:", err);
-        alert("Xatolik yuz berdi!");
+        alert(window.translateText("Xatolik yuz berdi!"));
     } finally {
         saveBtn.disabled = false;
-        saveBtn.textContent = "Saqlash hamda ro'yxatga qo'shish";
+        saveBtn.textContent = window.translateText("Saqlash hamda ro'yxatga qo'shish");
     }
 });

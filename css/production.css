@@ -22,15 +22,24 @@
     position: relative;
 }
 
+.modal-content h3 {
+    font-size: calc(18px * var(--font-scale));
+}
+
+.warning-subtext {
+    font-size: calc(13px * var(--font-scale));
+    color: var(--text-muted);
+}
+
 .modal-content.error-modal {
-    border-top: 5px solid #ef4444; /* Qizil chiziq */
+    border-top: 5px solid #ef4444;
 }
 
 .close-btn {
     position: absolute;
     top: 15px;
     right: 20px;
-    font-size: 24px;
+    font-size: calc(24px * var(--font-scale));
     cursor: pointer;
     color: var(--text-muted);
 }
@@ -53,7 +62,7 @@
     align-items: center;
     padding: 10px 0;
     border-bottom: 1px solid var(--border-color);
-    font-size: 14px;
+    font-size: calc(14px * var(--font-scale));
     color: var(--text-main);
 }
 
@@ -66,6 +75,10 @@
     cursor: pointer;
     font-weight: 600;
     transition: 0.2s;
+    font-size: calc(13px * var(--font-scale));
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .info-btn:hover {
@@ -75,5 +88,5 @@
 .missing-amount {
     color: #ef4444;
     font-weight: bold;
-    font-size: 13px;
+    font-size: calc(13px * var(--font-scale));
 }

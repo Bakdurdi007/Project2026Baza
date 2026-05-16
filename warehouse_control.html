@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ombor Nazorati</title>
+    <title data-translate="Ombor Nazorati | Tizim 2026">Ombor Nazorati | Tizim 2026</title>
     <link rel="stylesheet" href="css/admin_style.css">
     <link rel="stylesheet" href="css/warehouse_style.css">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -15,94 +15,98 @@
 <div class="app-layout">
     <aside class="sidebar">
         <div class="sidebar-header">
-            <h2 class="brand-title">Tizim 2026</h2>
+            <h2 class="brand-title" data-translate="Tizim 2026">Tizim 2026</h2>
         </div>
         <nav class="sidebar-menu">
-            <a href="admin_panel.html" class="menu-item"><i class="ph ph-squares-four"></i> Bosh sahifa</a>
-            <a href="warehouse_control.html" class="menu-item active"><i class="ph ph-package"></i> Ombor nazorati</a>
-            <a href="production.html" class="menu-item"><i class="ph ph-factory"></i> Ishlab chiqarish</a>
-            <a href="sales_and_revenue.html" class="menu-item"><i class="ph ph-shopping-cart"></i> Sotuv va Tushumlar</a>
-            <a href="reports.html" class="menu-item"><i class="ph ph-chart-line-up"></i> Hisobotlar</a>
+            <a href="admin_panel.html" class="menu-item"><i class="ph ph-squares-four"></i> <span data-translate="Bosh sahifa">Bosh sahifa</span></a>
+            <a href="warehouse_control.html" class="menu-item active"><i class="ph ph-package"></i> <span data-translate="Ombor nazorati">Ombor nazorati</span></a>
+            <a href="production.html" class="menu-item"><i class="ph ph-factory"></i> <span data-translate="Ishlab chiqarish">Ishlab chiqarish</span></a>
+            <a href="sales_and_revenue.html" class="menu-item"><i class="ph ph-shopping-cart"></i> <span data-translate="Sotuv va Tushumlar">Sotuv va Tushumlar</span></a>
+            <a href="reports.html" class="menu-item"><i class="ph ph-chart-line-up"></i> <span data-translate="Hisobotlar">Hisobotlar</span></a>
         </nav>
         <div class="sidebar-footer">
-            <button id="logoutBtn" class="menu-item logout-btn"><i class="ph ph-sign-out"></i> Chiqish</button>
+            <button id="logoutBtn" class="menu-item logout-btn"><i class="ph ph-sign-out"></i> <span data-translate="Chiqish">Chiqish</span></button>
         </div>
     </aside>
 
     <main class="main-content">
         <header class="topbar">
-            <h1 class="page-title">Ombor nazorati</h1>
+            <h1 class="page-title" data-translate="Ombor nazorati">Ombor nazorati</h1>
             <div class="topbar-actions">
+                <button id="fontDecrease" class="badge-btn" title="Shriftni kichiklashtirish">A-</button>
+                <button id="fontIncrease" class="badge-btn" title="Shriftni kattalashtirish">A+</button>
+
+                <button id="langToggle" class="badge-btn" title="Lotin / Кирилл">
+                    <i class="ph ph-translate" id="langIcon"></i>
+                </button>
+
                 <button id="themeToggle" class="badge-btn">
                     <i class="ph ph-moon" id="themeIcon"></i>
-                    <span id="themeText">Dark Mode</span>
+                    <span id="themeText" data-translate="Dark Mode">Dark Mode</span>
                 </button>
                 <div class="user-badge">
                     <span class="status-dot"></span>
-                    <span id="adminName">Yuklanmoqda...</span>
+                    <span id="adminName" data-translate="Yuklanmoqda...">Yuklanmoqda...</span>
                 </div>
             </div>
         </header>
 
         <div class="content-wrapper">
             <div class="warehouse-grid">
-                <!-- Chap tomon: Ma'lumot kiritish formasi -->
                 <section class="form-section card">
-                    <h3 class="section-title">| Xomashyo kiritish</h3>
+                    <h3 class="section-title"><span data-translate="| Xomashyo kiritish">| Xomashyo kiritish</span></h3>
                     <form id="materialForm">
                         <div class="form-group">
-                            <label>Xomashyo nomi</label>
+                            <label data-translate="Xomashyo nomi">Xomashyo nomi</label>
                             <select id="mat_name" required>
-                                <option value="" disabled selected>Tanlang...</option>
-                                <option value="Oq sement">Oq sement</option>
-                                <option value="Qora sement">Qora sement</option>
-                                <option value="Oq tosh">Oq tosh</option>
-                                <option value="Qora tosh">Qora tosh</option>
-                                <option value="Kraska 750">Kraska 750</option>
-                                <option value="Kraska 313">Kraska 313</option>
-                                <option value="Kraska Titan">Kraska Titan</option>
-                                <option value="Kraska 130">Kraska 130</option>
-                                <option value="Kraska 315">Kraska 315</option>
-                                <option value="Kraska 686">Kraska 686</option>
-                                <option value="Kraska Saja">Kraska Saja</option>
-                                <option value="Ximikat">Ximikat</option>
+                                <option value="" disabled selected data-translate="Tanlang...">Tanlang...</option>
+                                <option value="Oq sement" data-translate="Oq sement">Oq sement</option>
+                                <option value="Qora sement" data-translate="Qora sement">Qora sement</option>
+                                <option value="Oq tosh" data-translate="Oq tosh">Oq tosh</option>
+                                <option value="Qora tosh" data-translate="Qora tosh">Qora tosh</option>
+                                <option value="Kraska 750" data-translate="Kraska 750">Kraska 750</option>
+                                <option value="Kraska 313" data-translate="Kraska 313">Kraska 313</option>
+                                <option value="Kraska Titan" data-translate="Kraska Titan">Kraska Titan</option>
+                                <option value="Kraska 130" data-translate="Kraska 130">Kraska 130</option>
+                                <option value="Kraska 315" data-translate="Kraska 315">Kraska 315</option>
+                                <option value="Kraska 686" data-translate="Kraska 686">Kraska 686</option>
+                                <option value="Kraska Saja" data-translate="Kraska Saja">Kraska Saja</option>
+                                <option value="Ximikat" data-translate="Ximikat">Ximikat</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>O'lchov birligi</label>
+                            <label data-translate="O'lchov birligi">O'lchov birligi</label>
                             <select id="mat_unit" required>
-                                <option value="kg">Kilogramm (kg)</option>
+                                <option value="kg" data-translate="Kilogramm (kg)">Kilogramm (kg)</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Kelib tushgan miqdor (Massa)</label>
+                            <label data-translate="Kelib tushgan miqdor (Massa)">Kelib tushgan miqdor (Massa)</label>
                             <input type="number" step="0.01" id="mat_stock" placeholder="0.00" required>
                         </div>
                         <div class="form-group">
-                            <label>O'rtacha narxi 1kg uchun (so'mda) </label>
-                            <input type="number" id="mat_cost" placeholder="Summani kiriting..." required>
+                            <label data-translate="O'rtacha narxi 1kg uchun (so'mda)">O'rtacha narxi 1kg uchun (so'mda)</label>
+                            <input type="number" id="mat_cost" placeholder="Summani kiriting..." data-translate-placeholder="Summani kiriting..." required>
                         </div>
-                        <button type="submit" class="submit-btn" id="saveBtn">Saqlash hamda ro'yxatga qo'shish</button>
+                        <button type="submit" class="submit-btn" id="saveBtn" data-translate="Saqlash hamda ro'yxatga qo'shish">Saqlash hamda ro'yxatga qo'shish</button>
                     </form>
                 </section>
 
-                <!-- O'ng tomon: Kiritilgan xomashyolar tarixi -->
                 <section class="list-section card">
-                    <h3 class="section-title">| Kiritilgan xomashyolar tarixi</h3>
+                    <h3 class="section-title"><span data-translate="| Kiritilgan xomashyolar tarixi">| Kiritilgan xomashyolar tarixi</span></h3>
                     <div class="table-container">
                         <table>
                             <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Nomi</th>
-                                <th>Kiritilgan massa</th>
-                                <th>1kg narxi</th>
-                                <th>Umumiy qiymat</th>
-                                <th>Kiritilgan vaqt</th>
+                                <th data-translate="ID">ID</th>
+                                <th data-translate="Nomi">Nomi</th>
+                                <th data-translate="Kiritilgan massa">Kiritilgan massa</th>
+                                <th data-translate="1kg narxi">1kg narxi</th>
+                                <th data-translate="Umumiy qiymat">Umumiy qiymat</th>
+                                <th data-translate="Kiritilgan vaqt">Kiritilgan vaqt</th>
                             </tr>
                             </thead>
                             <tbody id="materialsTableBody">
-                            <!-- Ma'lumotlar JS orqali keladi -->
                             </tbody>
                         </table>
                     </div>
