@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ombor Nazorati</title>
+    <link rel="stylesheet" href="css/admin_style.css">
+    <link rel="stylesheet" href="css/warehouse_style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/guard.js"></script>
+</head>
+<body>
+
+<div class="app-layout">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2 class="brand-title">Tizim 2026</h2>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="admin_panel.html" class="menu-item"><i class="ph ph-squares-four"></i> Bosh sahifa</a>
+            <a href="warehouse_control.html" class="menu-item active"><i class="ph ph-package"></i> Ombor nazorati</a>
+            <a href="production.html" class="menu-item"><i class="ph ph-factory"></i> Ishlab chiqarish</a>
+            <a href="sales_and_revenue.html" class="menu-item"><i class="ph ph-shopping-cart"></i> Sotuv va Tushumlar</a>
+            <a href="reports.html" class="menu-item"><i class="ph ph-chart-line-up"></i> Hisobotlar</a>
+        </nav>
+        <div class="sidebar-footer">
+            <button id="logoutBtn" class="menu-item logout-btn"><i class="ph ph-sign-out"></i> Chiqish</button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <h1 class="page-title">Ombor nazorati</h1>
+            <div class="topbar-actions">
+                <button id="themeToggle" class="badge-btn">
+                    <i class="ph ph-moon" id="themeIcon"></i>
+                    <span id="themeText">Dark Mode</span>
+                </button>
+                <div class="user-badge">
+                    <span class="status-dot"></span>
+                    <span id="adminName">Yuklanmoqda...</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            <div class="warehouse-grid">
+                <!-- Chap tomon: Ma'lumot kiritish formasi -->
+                <section class="form-section card">
+                    <h3 class="section-title">| Xomashyo kiritish</h3>
+                    <form id="materialForm">
+                        <div class="form-group">
+                            <label>Xomashyo nomi</label>
+                            <select id="mat_name" required>
+                                <option value="" disabled selected>Tanlang...</option>
+                                <option value="Oq sement">Oq sement</option>
+                                <option value="Qora sement">Qora sement</option>
+                                <option value="Oq tosh">Oq tosh</option>
+                                <option value="Qora tosh">Qora tosh</option>
+                                <option value="Kraska 750">Kraska 750</option>
+                                <option value="Kraska 313">Kraska 313</option>
+                                <option value="Kraska Titan">Kraska Titan</option>
+                                <option value="Kraska 130">Kraska 130</option>
+                                <option value="Kraska 315">Kraska 315</option>
+                                <option value="Kraska 686">Kraska 686</option>
+                                <option value="Kraska Saja">Kraska Saja</option>
+                                <option value="Ximikat">Ximikat</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>O'lchov birligi</label>
+                            <select id="mat_unit" required>
+                                <option value="kg">Kilogramm (kg)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Kelib tushgan miqdor (Massa)</label>
+                            <input type="number" step="0.01" id="mat_stock" placeholder="0.00" required>
+                        </div>
+                        <div class="form-group">
+                            <label>O'rtacha narxi 1kg uchun (so'mda) </label>
+                            <input type="number" id="mat_cost" placeholder="Summani kiriting..." required>
+                        </div>
+                        <button type="submit" class="submit-btn" id="saveBtn">Saqlash hamda ro'yxatga qo'shish</button>
+                    </form>
+                </section>
+
+                <!-- O'ng tomon: Kiritilgan xomashyolar tarixi -->
+                <section class="list-section card">
+                    <h3 class="section-title">| Kiritilgan xomashyolar tarixi</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nomi</th>
+                                <th>Kiritilgan massa</th>
+                                <th>1kg narxi</th>
+                                <th>Umumiy qiymat</th>
+                                <th>Kiritilgan vaqt</th>
+                            </tr>
+                            </thead>
+                            <tbody id="materialsTableBody">
+                            <!-- Ma'lumotlar JS orqali keladi -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="js/admin_script.js"></script>
+<script src="js/warehouse_control.js"></script>
+</body>
+</html>

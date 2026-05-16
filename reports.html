@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hisobotlar | Tizim 2026</title>
+    <link rel="stylesheet" href="css/admin_style.css">
+    <link rel="stylesheet" href="css/reports.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="js/guard.js"></script>
+</head>
+<body>
+
+<div class="app-layout">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2 class="brand-title">Tizim 2026</h2>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="admin_panel.html" class="menu-item"><i class="ph ph-squares-four"></i> Bosh sahifa</a>
+            <a href="warehouse_control.html" class="menu-item"><i class="ph ph-package"></i> Ombor nazorati</a>
+            <a href="production.html" class="menu-item"><i class="ph ph-factory"></i> Ishlab chiqarish</a>
+            <a href="sales_and_revenue.html" class="menu-item"><i class="ph ph-shopping-cart"></i> Sotuv va Tushumlar</a>
+            <a href="reports.html" class="menu-item active"><i class="ph ph-chart-line-up"></i> Hisobotlar</a>
+        </nav>
+        <div class="sidebar-footer">
+            <button id="logoutBtn" class="menu-item logout-btn"><i class="ph ph-sign-out"></i> Chiqish</button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <h1 class="page-title">Moliyaviy va Ombor Hisobotlari</h1>
+            <div class="topbar-actions">
+                <button id="themeToggle" class="badge-btn">
+                    <i class="ph ph-moon" id="themeIcon"></i>
+                    <span id="themeText">Dark Mode</span>
+                </button>
+                <div class="user-badge">
+                    <span class="status-dot"></span>
+                    <span id="adminName">Yuklanmoqda...</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            <div class="reports-grid">
+
+                <div class="report-card">
+                    <div class="report-card-header">
+                        <h3><i class="ph ph-trend-down"></i> KELIB TUSHGAN XOMASHYOLAR HISOBOTI</h3>
+                    </div>
+                    <div class="report-card-body">
+                        <div class="date-group">
+                            <label>Boshlanish sanasi</label>
+                            <input type="date" id="start-date-1">
+                        </div>
+                        <div class="date-group">
+                            <label>Tugash sanasi</label>
+                            <input type="date" id="end-date-1">
+                        </div>
+                        <button class="btn-report" onclick="generateReport('materials')">Hisobot</button>
+                    </div>
+                </div>
+
+                <div class="report-card">
+                    <div class="report-card-header">
+                        <h3><i class="ph ph-factory"></i> ISHLAB CHIQARILGAN MAHSULOTLAR HISOBOTI</h3>
+                    </div>
+                    <div class="report-card-body">
+                        <div class="date-group">
+                            <label>Boshlanish sanasi</label>
+                            <input type="date" id="start-date-2">
+                        </div>
+                        <div class="date-group">
+                            <label>Tugash sanasi</label>
+                            <input type="date" id="end-date-2">
+                        </div>
+                        <button class="btn-report" onclick="generateReport('production')">Hisobot</button>
+                    </div>
+                </div>
+
+                <div class="report-card">
+                    <div class="report-card-header">
+                        <h3><i class="ph ph-money"></i> SOTILGAN MAHSULOTLAR (TUSHUM) HISOBOTI</h3>
+                    </div>
+                    <div class="report-card-body">
+                        <div class="date-group">
+                            <label>Boshlanish sanasi</label>
+                            <input type="date" id="start-date-3">
+                        </div>
+                        <div class="date-group">
+                            <label>Tugash sanasi</label>
+                            <input type="date" id="end-date-3">
+                        </div>
+                        <button class="btn-report" onclick="generateReport('sales')">Hisobot</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+</div>
+
+<div id="printArea" class="a4-print-zone">
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/admin_script.js"></script>
+<script src="js/reports.js"></script>
+</body>
+</html>

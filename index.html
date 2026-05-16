@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tizimga kirish</title>
+    <link rel="stylesheet" href="css/main.css">
+    <!-- Supabase kutubxonasini ulash -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<div class="login-container">
+    <div class="login-card">
+        <h2>Kirish</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="phone">Telefon raqam</label>
+                <input
+                        type="number"
+                        id="phone"
+                        placeholder="998901234567"
+                        maxlength="12"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                        required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Parol</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+
+            <div id="errorMessage" class="error-message"></div>
+
+            <button type="submit" id="loginBtn">Tizimga kirish</button>
+        </form>
+    </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+/* --- Global sozlamalar va Ranglar --- */
+:root {
+    /* Yorug' rejim ranglari */
+    --bg-body: #f5f7fa;
+    --bg-surface: #ffffff;
+    --text-main: #1e1e1e;
+    --text-muted: #8b8b8b;
+    --border-color: #eaeef3;
+
+    --primary-color: #4f46e5; /* Rasmdagidek to'q ko'k-binafsha */
+    --primary-light: #eff0fe;
+    --danger-color: #e74c3c;
+}
+
+[data-theme="dark"] {
+    /* Qorong'u rejim ranglari */
+    --bg-body: #121212;
+    --bg-surface: #1e1e1e;
+    --text-main: #f3f3f3;
+    --text-muted: #a0a0a0;
+    --border-color: #2c2c2c;
+
+    --primary-color: #818cf8;
+    --primary-light: #2c2e3e;
+    --danger-color: #ff6b6b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    overflow: hidden; /* Scroll faqat kerakli joyda bo'ladi */
+}
+
+/* --- Asosiy Layout --- */
+.app-layout {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+/* --- Sidebar (Menyular paneli) --- */
+.sidebar {
+    width: 260px;
+    background-color: var(--bg-surface);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    padding: 0 25px;
+}
+
+.brand-title {
+    color: var(--primary-color);
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.sidebar-menu {
+    flex: 1;
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+}
+
+.menu-item i {
+    font-size: 20px;
+}
+
+.menu-item:hover {
+    color: var(--text-main);
+    background-color: var(--bg-body);
+}
+
+.menu-item.active {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+}
+
+.sidebar-footer {
+    padding: 20px 15px;
+    border-top: 1px solid var(--border-color);
+}
+
+.logout-btn {
+    color: var(--danger-color);
+}
+
+.logout-btn:hover {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: var(--danger-color);
+}
+
+/* --- Asosiy kontent va Yuqori panel --- */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.topbar {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    background-color: var(--bg-body);
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Tugmalar va Badgelar (Rasmdagidek) */
+.badge-btn, .user-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 20px; /* Yumaloq shakl */
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-main);
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+.badge-btn:hover {
+    border-color: var(--primary-color);
+}
+
+.badge-btn i {
+    color: #f39c12; /* Oy belgisi rangi */
+    font-size: 16px;
+}
+
+.user-badge {
+    cursor: default;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #2ecc71; /* Yashil nuqta */
+    border-radius: 50%;
+}
+
+.content-wrapper {
+    padding: 0 40px 40px 40px;
+}

@@ -1,0 +1,254 @@
+/* ==========================================================================
+   1. EKRAN INTERFEYSI UCHUN STILLAR
+   ========================================================================== */
+.reports-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.report-card {
+    background: #ffffff;
+    border: 1px solid #c7c6f5;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    overflow: hidden;
+}
+
+.report-card-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.report-card-header h3 {
+    margin: 0;
+    font-size: 15px;
+    color: #475569;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+}
+
+.report-card-body {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    padding: 20px;
+}
+
+.date-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.date-group label {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-bottom: 5px;
+}
+
+.date-group input {
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #1e293b;
+    outline: none;
+    transition: 0.3s;
+}
+
+.date-group input:focus {
+    border-color: #6366f1;
+}
+
+.btn-report {
+    background: #6366f1;
+    color: white;
+    border: none;
+    padding: 14px 40px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+    height: fit-content;
+}
+
+.btn-report:hover {
+    background: #4f46e5;
+}
+
+/* Ekrandan yashirish */
+.a4-print-zone {
+    display: none;
+}
+
+
+/* ==========================================================================
+   2. PROFESSIONAL CHOP ETISH UCHUN TUGAL TUZATILGAN A4 STILLARI
+   ========================================================================== */
+@media print {
+    /* Fon ranglarini majburiy render qilish */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* Xatolikni davosi: Ekranning hamma elementini yashiramiz,
+       lekin 'display: none' qilmaymiz, chunki layout buzilmasligi kerak.
+    */
+    body {
+        visibility: hidden !important;
+        background: #ffffff !important;
+    }
+
+    /* Faqat A4 zonasi va uning ichidagi hamma narsani ko'rsatish (O'z tabiati bo'yicha) */
+    .a4-print-zone, .a4-print-zone * {
+        visibility: visible !important;
+    }
+
+    .a4-print-zone {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        display: block !important; /* Faqat asosiy konteyner blok */
+        font-family: Arial, sans-serif;
+        color: #000000;
+    }
+
+    @page {
+        size: A4 portrait;
+        margin: 15mm 12mm 15mm 12mm; /* Mukammal hoshiya */
+    }
+
+    /* Shapka qismi */
+    .document-header {
+        width: 100%;
+        border-bottom: 2px solid #000000;
+        padding-bottom: 8px;
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    .document-header h1 {
+        font-size: 18px;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin: 0 0 5px 0;
+        letter-spacing: 0.5px;
+    }
+
+    .document-header p {
+        font-size: 12px;
+        color: #334155;
+        margin: 0;
+    }
+
+    /* HAQIQIY PROFESSIONAL JADVAL TUZILMASI
+       Kataklar block emas, jadval katagi kabi yonma-yon chiziladi
+    */
+    .print-table {
+        display: table !important;
+        width: 100% !important;
+        border-collapse: collapse !important;
+        margin-bottom: 25px !important;
+        font-size: 11px !important;
+    }
+
+    .print-table thead {
+        display: table-header-group !important;
+    }
+
+    .print-table tbody {
+        display: table-row-group !important;
+    }
+
+    .print-table tr {
+        display: table-row !important;
+    }
+
+    /* Sarlavha kataklari */
+    .print-table th {
+        display: table-cell !important;
+        background-color: #f1f5f9 !important; /* Toza och kulrang fon */
+        color: #000000 !important;
+        font-weight: bold !important;
+        text-transform: uppercase;
+        font-size: 11px;
+        padding: 8px 6px !important;
+        border: 1px solid #000000 !important; /* Aniq ko'rinadigan qora chiziq */
+        text-align: center !important;
+        vertical-align: middle !important;
+    }
+
+    /* Oddiy ma'lumot kataklari */
+    .print-table td {
+        display: table-cell !important;
+        padding: 7px 6px !important;
+        border: 1px solid #000000 !important; /* To'liq qora chiziqli aniq jadval */
+        vertical-align: middle !important;
+        background: transparent !important;
+    }
+
+    /* Matn va sonlarni tekislash */
+    .print-table .center {
+        text-align: center !important;
+    }
+
+    .print-table .num {
+        text-align: right !important;
+        font-variant-numeric: tabular-nums; /* Raqamlar simmetriyasi uchun */
+    }
+
+    /* Buxgalteriya balansi uslubidagi Yakuniy qator */
+    .print-table .total-row td {
+        font-weight: bold !important;
+        background-color: #f8fafc !important;
+        border-top: 2px solid #000000 !important;
+        border-bottom: 4px double #000000 !important; /* Qo'shaloq chiziq */
+        font-size: 11px !important;
+    }
+
+    /* Imzolar qismi */
+    .document-footer {
+        margin-top: 35px;
+        font-size: 11px;
+    }
+
+    .signature-container {
+        margin-top: 40px;
+        width: 100%;
+    }
+
+    /* Imzolarni yonma-yon chiroyli chiqarish */
+    .signature-table {
+        display: table !important;
+        width: 100% !important;
+        border: none !important;
+    }
+
+    .signature-table tr {
+        display: table-row !important;
+    }
+
+    .signature-table td {
+        display: table-cell !important;
+        border: none !important;
+        width: 33.3% !important;
+        padding: 0 10px !important;
+        vertical-align: bottom !important;
+    }
+
+    .sig-line {
+        border-top: 1px solid #000000 !important;
+        margin-top: 40px;
+        text-align: center;
+        font-size: 10px;
+        color: #475569;
+        padding-top: 4px;
+    }
+}

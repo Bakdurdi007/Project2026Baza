@@ -1,0 +1,105 @@
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.product-card {
+    background: var(--bg-surface, #ffffff);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.card-icon-circle {
+    width: 80px;
+    height: 80px;
+    background: var(--primary-light, #f0f7ff);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.card-icon-circle i {
+    font-size: 40px;
+    color: var(--primary-color, #2563eb);
+}
+
+.card-content {
+    flex-grow: 1;
+}
+
+.product-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-main, #1f2937);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.card-stats {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding-top: 12px;
+    gap: 15px;
+}
+
+.stat-item {
+    flex: 1;
+}
+
+.stat-divider {
+    width: 1px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted, #6b7280);
+    margin-bottom: 2px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-main, #111827);
+}
+
+/* Dark Mode uchun moslashuv */
+[data-theme="dark"] .product-card {
+    background: #1e293b;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+[data-theme="dark"] .card-icon-circle {
+    background: rgba(37, 99, 235, 0.2);
+}
+
+/* Sementlar uchun kulrang */
+.ph-cube, .ph-cube-transparent { color: #64748b; }
+
+/* Toshlar uchun jigarrang/tabiiy rang */
+.ph-mountains, .ph-mountain { color: #92400e; }
+
+/* Kraskalar uchun yorqinroq rang */
+.ph-drop-half-bottom { color: #ef4444; }
+
+/* Ximikat uchun binafsha/ko'k */
+.ph-flask { color: #8b5cf6; }

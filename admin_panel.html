@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boshqaruv Paneli</title>
+    <link rel="stylesheet" href="css/admin_style.css">
+    <link rel="stylesheet" href="css/product_cards.css">
+    <!-- Ikonkalar va Supabase -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/guard.js"></script>
+</head>
+<body>
+
+<div class="app-layout">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2 class="brand-title">Tizim 2026</h2>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="admin_panel.html" class="menu-item active"><i class="ph ph-squares-four"></i> Bosh sahifa</a>
+            <a href="warehouse_control.html" class="menu-item"><i class="ph ph-package"></i> Ombor nazorati</a>
+            <a href="production.html" class="menu-item"><i class="ph ph-factory"></i> Ishlab chiqarish</a>
+            <a href="sales_and_revenue.html" class="menu-item"><i class="ph ph-shopping-cart"></i> Sotuv va Tushumlar</a>
+            <a href="reports.html" class="menu-item"><i class="ph ph-chart-line-up"></i> Hisobotlar</a>
+        </nav>
+        <div class="sidebar-footer">
+            <button id="logoutBtn" class="menu-item logout-btn"><i class="ph ph-sign-out"></i> Chiqish</button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <h1 class="page-title">Admin Panel</h1>
+            <div class="topbar-actions">
+                <button id="themeToggle" class="badge-btn">
+                    <i class="ph ph-moon" id="themeIcon"></i>
+                    <span id="themeText">Dark Mode</span>
+                </button>
+                <div class="user-badge">
+                    <span class="status-dot"></span>
+                    <span id="adminName">Yuklanmoqda...</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            <!-- Kartochkalar shu yerga dinamik yuklanadi -->
+            <div id="productGrid" class="product-grid">
+                <div class="loader">Ma'lumotlar yuklanmoqda...</div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="js/admin_script.js"></script>
+<script src="js/products_fetch.js"></script>
+</body>
+</html>

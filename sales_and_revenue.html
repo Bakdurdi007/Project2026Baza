@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sotuv va Tushumlar | Tizim 2026</title>
+    <link rel="stylesheet" href="css/admin_style.css">
+    <link rel="stylesheet" href="css/sales_and_revenue.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="js/guard.js"></script>
+</head>
+<body>
+
+<div class="app-layout">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2 class="brand-title">Tizim 2026</h2>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="admin_panel.html" class="menu-item"><i class="ph ph-squares-four"></i> Bosh sahifa</a>
+            <a href="warehouse_control.html" class="menu-item"><i class="ph ph-package"></i> Ombor nazorati</a>
+            <a href="production.html" class="menu-item"><i class="ph ph-factory"></i> Ishlab chiqarish</a>
+            <a href="sales_and_revenue.html" class="menu-item active"><i class="ph ph-shopping-cart"></i> Sotuv va Tushumlar</a>
+            <a href="reports.html" class="menu-item"><i class="ph ph-chart-line-up"></i> Hisobotlar</a>
+        </nav>
+        <div class="sidebar-footer">
+            <button id="logoutBtn" class="menu-item logout-btn"><i class="ph ph-sign-out"></i> Chiqish</button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <br>
+        <header class="topbar">
+            <h1 class="page-title">Sotuv va tushumlar bo'lmi</h1>
+            <div class="topbar-actions">
+                <button id="themeToggle" class="badge-btn">
+                    <i class="ph ph-moon" id="themeIcon"></i>
+                    <span id="themeText">Dark Mode</span>
+                </button>
+                <div class="user-badge">
+                    <span class="status-dot"></span>
+                    <span id="adminName">Yuklanmoqda...</span>
+                </div>
+            </div>
+        </header>
+        <br>
+        <div class="content-wrapper">
+            <div class="sales-container">
+
+                <div class="selection-side">
+                    <div class="section-card">
+                        <div class="product-display">
+                            <div class="img-placeholder">
+                                <img id="cardImage" src="" alt="Bruchatka">
+                            </div>
+                            <div class="product-info">
+                                <h2 id="cardTitle">Bruchatka nomi</h2>
+                                <div class="price-stock-row">
+                                    <div class="info-box">
+                                        <span>Narxi (1 m²)</span>
+                                        <strong id="cardPrice">0</strong>
+                                    </div>
+                                    <div class="info-box">
+                                        <span>Omborda</span>
+                                        <strong id="cardStock">0 m²</strong>
+                                    </div>
+                                </div>
+                                <div class="input-field">
+                                    <label>Sotib olinadigan miqdor (m²)</label>
+                                    <input type="number" id="orderQuantity" placeholder="0.00" step="0.01">
+                                </div>
+                                <div class="action-buttons">
+                                    <button id="addToListBtn" class="btn-outline">
+                                        <i class="ph ph-plus-circle"></i> Ro'yxatga qo'shish
+                                    </button>
+                                    <button id="placeOrderBtn" class="btn-fill">
+                                        <i class="ph ph-shopping-cart-simple"></i> Buyurtma berish
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-controls">
+                        <button id="prevBtn" class="circle-btn"><i class="ph ph-caret-left"></i></button>
+                        <button id="nextBtn" class="circle-btn"><i class="ph ph-caret-right"></i></button>
+                    </div>
+                </div>
+
+                <div class="basket-side">
+                    <div class="section-card">
+                        <div class="card-header">
+                            <h3><i class="ph ph-list-numbers"></i> Tanlangan mahsulotlar</h3>
+                            <button id="printBtn" class="print-btn"><i class="ph ph-printer"></i> Chop etish</button>
+                        </div>
+                        <div class="table-area">
+                            <table class="modern-table">
+                                <thead>
+                                <tr>
+                                    <th>Mahsulot</th>
+                                    <th>Miqdor</th>
+                                    <th>Summa</th>
+                                    <th style="width: 50px;"></th>
+                                </tr>
+                                </thead>
+                                <tbody id="orderListBody">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="total-bar">
+                            <span>Umumiy summa:</span>
+                            <h2 id="grandTotal">0 so'm</h2>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+</div>
+
+<div id="receiptArea" class="receipt-print-zone">
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/admin_script.js"></script>
+<script src="js/salse_and_revenue.js"></script>
+</body>
+</html>
