@@ -254,7 +254,7 @@
 }
 
 /* ==========================================================================
-   2. CHEK CHOP ETISH STILLARI (80MM XPRINTER STANDARTI)
+   2. CHEK CHOP ETISH STILLARI (80MM XPRINTER PROFESSIONAL STANDARTI)
    ========================================================================== */
 .receipt-print-zone {
     display: none;
@@ -270,69 +270,108 @@
     }
 
     .receipt-print-zone {
+        display: block !important;
         position: absolute;
         left: 0;
         top: 0;
-        width: 74mm;
-        padding: 0;
+        width: 72mm; /* 80mm li lenta uchun qirqilib ketmaydigan ideal o'lcham */
+        padding: 4mm 2mm;
         margin: 0;
-        font-family: 'Courier New', Courier, monospace;
-        font-size: 12px;
+        font-family: 'Courier New', Courier, monospace; /* Kassalarga xos professional shrift */
+        font-size: 13px;
+        line-height: 1.4;
         color: #000000 !important;
         background: #ffffff !important;
+        box-sizing: border-box;
     }
 
     .receipt-header {
         text-align: center;
-        margin-bottom: 12px;
-        border-bottom: 1px dashed #000000;
-        padding-bottom: 10px;
+        margin-bottom: 10px;
     }
 
     .receipt-header h2 {
-        margin: 0;
-        font-size: 16px;
-        font-weight: bold;
+        margin: 0 0 4px 0;
+        font-size: 18px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
     .receipt-header p {
-        margin: 4px 0 0;
-        font-size: 11px;
+        margin: 2px 0;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .receipt-divider {
+        border-top: 1px dashed #000000;
+        margin: 6px 0;
+    }
+
+    .receipt-double-divider {
+        border-top: 3px double #000000;
+        margin: 8px 0;
+    }
+
+    .receipt-meta {
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    .receipt-meta-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 3px;
+    }
+
+    .receipt-table-header {
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+        font-size: 12px;
+        border-bottom: 1px solid #000000;
+        padding-bottom: 4px;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+    }
+
+    .receipt-body {
+        margin-bottom: 5px;
     }
 
     .receipt-item {
         margin-bottom: 8px;
-        padding-bottom: 6px;
-        border-bottom: 1px dotted #aaaaaa;
     }
 
     .receipt-item-name {
         font-weight: bold;
-        margin-bottom: 3px;
-        font-size: 13px;
+        font-size: 14px;
+        word-break: break-word;
+        margin-bottom: 2px;
     }
 
     .receipt-item-details {
         display: flex;
         justify-content: space-between;
-        font-size: 11px;
+        font-size: 13px;
+        padding-left: 6px;
     }
 
     .receipt-total {
-        margin-top: 10px;
-        border-top: 1px dashed #000000;
-        padding-top: 8px;
-        text-align: right;
-        font-size: 15px;
-        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 4px 0;
+        font-size: 18px;
+        font-weight: 900;
     }
 
     .receipt-footer {
         text-align: center;
         margin-top: 15px;
-        font-size: 11px;
-        border-top: 1px dashed #000000;
-        padding-top: 8px;
+        font-size: 12px;
+        line-height: 1.5;
     }
 
     @page {

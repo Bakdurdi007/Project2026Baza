@@ -146,7 +146,91 @@ function renderBasket() {
     totalEl.innerText = grandTotal.toLocaleString('uz-UZ') + " " + txtSom;
 }
 
-// Buyurtmani yakunlash va orders jadvaliga yozish
+// ==========================================
+// 80MM PRINTER UCHUN YANGILANGAN PROFESSIONAL CHEK MANTIQI
+// ==========================================
+function runReceiptPrint() {
+    const receiptArea = document.getElementById('receiptArea');
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('uz-UZ');
+    const timeStr = now.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' });
+
+    // Tizimdagi joriy foydalanuvchi ismini dinamik aniqlash
+    const adminNameEl = document.getElementById('adminName');
+    const cashierName = (adminNameEl && adminNameEl.innerText !== "Yuklanmoqda...") ? adminNameEl.innerText : window.translateText("Xodim");
+
+    let receiptHTML = `
+        <div class="receipt-header">
+            <h2>${window.translateText("Tizim 2026")}</h2>
+            <p>*** ${window.translateText("SOTUV CHEKI")} ***</p>
+        </div>
+        
+        <div class="receipt-divider"></div>
+        
+        <div class="receipt-meta">
+            <div class="receipt-meta-row">
+                <span>${window.translateText("Sana:")} ${dateStr}</span>
+                <span>${window.translateText("Vaqt:")} ${timeStr}</span>
+            </div>
+            <div class="receipt-meta-row">
+                <span>${window.translateText("Kassir:")} ${cashierName}</span>
+            </div>
+        </div>
+        
+        <div class="receipt-divider"></div>
+        
+        <div class="receipt-table-header">
+            <span>${window.translateText("Mahsulot / Miqdor")}</span>
+            <span>${window.translateText("Summa")}</span>
+        </div>
+        
+        <div class="receipt-body">
+    `;
+
+    let grandTotal = 0;
+    const txtSom = window.translateText("so'm");
+
+    basket.forEach(item => {
+        grandTotal += item.total;
+        receiptHTML += `
+            <div class="receipt-item">
+                <div class="receipt-item-name">${window.translateText(item.name)}</div>
+                <div class="receipt-item-details">
+                    <span>${item.qty.toLocaleString('uz-UZ')} m² x ${item.price.toLocaleString('uz-UZ')}</span>
+                    <span style="font-weight: bold;">${item.total.toLocaleString('uz-UZ')}</span>
+                </div>
+            </div>
+        `;
+    });
+
+    receiptHTML += `
+        </div>
+        
+        <div class="receipt-double-divider"></div>
+        
+        <div class="receipt-total">
+            <span>${window.translateText("JAMI:")}</span>
+            <span>${grandTotal.toLocaleString('uz-UZ')} ${txtSom}</span>
+        </div>
+        
+        <div class="receipt-double-divider"></div>
+        
+        <div class="receipt-footer">
+            <p style="font-weight: bold; margin: 0 0 4px 0;">${window.translateText("Xaridingiz uchun rahmat!")}</p>
+            <p style="font-size: 10px; margin: 0; color: #555;">${window.translateText("Tizim 2026 dasturiy ta'minoti")}</p>
+        </div>
+    `;
+
+    // Chek hududini yangilash
+    receiptArea.innerHTML = receiptHTML;
+
+    // Render kechikmasligi va oq ekran chiqmasligi uchun kafolatlangan vaqtinchalik pauza
+    setTimeout(() => {
+        window.print();
+    }, 150);
+}
+
+// Buyurtmani yakunlash va orders jadvaliga yozish (Yangi avtomatik chek chiqarish qo'shildi)
 document.getElementById('placeOrderBtn').onclick = async () => {
     if (basket.length === 0) {
         alert(window.translateText("Savat bo'sh!"));
@@ -165,61 +249,22 @@ document.getElementById('placeOrderBtn').onclick = async () => {
     if (error) {
         alert(window.translateText("Buyurtmani saqlashda xatolik: ") + error.message);
     } else {
-        alert(window.translateText("Buyurtma muvaffaqiyatli saqlandi!"));
+        alert(window.translateText("Buyurtma muvaffaqiyatli saqlandi! Chek chop etilmoqda..."));
+
+        // Muvaffaqiyatli yakunlangandan so'ng chek chop etish mantiqini ishga tushirish
+        runReceiptPrint();
+
+        // Savatni tozalash
         basket = [];
         renderBasket();
     }
 };
 
-// ==========================================
-// 80MM PRINTER UCHUN CHEK CHOP ETISH MANTIQI
-// ==========================================
+// Qo'shimcha qo'lda chop etish tugmasi mantiqi (Savat tozalanishidan oldin chop etish uchun)
 document.getElementById('printBtn').onclick = () => {
     if (basket.length === 0) {
         alert(window.translateText("Chop etish uchun savatda mahsulot yo'q!"));
         return;
     }
-
-    const receiptArea = document.getElementById('receiptArea');
-    const now = new Date();
-    const dateStr = now.toLocaleDateString('uz-UZ') + " " + now.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' });
-
-    let receiptHTML = `
-        <div class="receipt-header">
-            <h2>${window.translateText("Tizim 2026")}</h2>
-            <p>${window.translateText("Sotuv cheki")}</p>
-            <p>${window.translateText("Sana:")} ${dateStr}</p>
-        </div>
-        <div class="receipt-body">
-    `;
-
-    let grandTotal = 0;
-    const txtSom = window.translateText("so'm");
-
-    basket.forEach(item => {
-        grandTotal += item.total;
-        receiptHTML += `
-            <div class="receipt-item">
-                <div class="receipt-item-name">${window.translateText(item.name)}</div>
-                <div class="receipt-item-details">
-                    <span>${item.qty.toLocaleString('uz-UZ')} m² x ${item.price.toLocaleString('uz-UZ')}</span>
-                    <span>${item.total.toLocaleString('uz-UZ')} ${txtSom}</span>
-                </div>
-            </div>
-        `;
-    });
-
-    receiptHTML += `
-        </div>
-        <div class="receipt-total">
-            ${window.translateText("JAMI:")} ${grandTotal.toLocaleString('uz-UZ')} ${txtSom}
-        </div>
-        <div class="receipt-footer">
-            ${window.translateText("Xaridingiz uchun rahmat!")}<br>
-            ${window.translateText("Tizim 2026 dasturiy ta'minoti")}
-        </div>
-    `;
-
-    receiptArea.innerHTML = receiptHTML;
-    window.print();
+    runReceiptPrint();
 };
