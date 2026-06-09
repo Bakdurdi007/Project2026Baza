@@ -253,6 +253,51 @@
     justify-content: center;
 }
 
+/* MODAL STILLARI */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background: var(--bg-surface);
+    padding: 35px;
+    border-radius: 20px;
+    width: 450px;
+    max-width: 90%;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    border: 1px solid var(--border-color);
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: var(--text-main);
+    font-size: calc(20px * var(--font-scale));
+    font-weight: 700;
+    text-align: center;
+}
+
+.modal-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.modal-actions button {
+    flex: 1;
+}
+
 /* ==========================================================================
    2. CHEK CHOP ETISH STILLARI (80MM XPRINTER PROFESSIONAL STANDARTI)
    ========================================================================== */
@@ -274,10 +319,10 @@
         position: absolute;
         left: 0;
         top: 0;
-        width: 72mm; /* 80mm li lenta uchun qirqilib ketmaydigan ideal o'lcham */
+        width: 72mm;
         padding: 4mm 2mm;
         margin: 0;
-        font-family: 'Courier New', Courier, monospace; /* Kassalarga xos professional shrift */
+        font-family: 'Courier New', Courier, monospace;
         font-size: 13px;
         line-height: 1.4;
         color: #000000 !important;
@@ -325,6 +370,11 @@
         margin-bottom: 3px;
     }
 
+    .receipt-meta-full {
+        margin-bottom: 3px;
+        word-break: break-word;
+    }
+
     .receipt-table-header {
         display: flex;
         justify-content: space-between;
@@ -356,6 +406,14 @@
         justify-content: space-between;
         font-size: 13px;
         padding-left: 6px;
+    }
+
+    .receipt-pieces {
+        font-size: 11px;
+        font-style: italic;
+        padding-left: 6px;
+        margin-top: 2px;
+        color: #111;
     }
 
     .receipt-total {

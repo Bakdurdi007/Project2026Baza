@@ -1,4 +1,4 @@
-// Supabase Infratuzilma Sozlamasi (Loyiha standartiga muvofiq supabaseClient ga o'zgartirildi)
+// Supabase Infratuzilma Sozlamasi
 const SUPABASE_URL = 'https://xnyzlfzosefqvmqqrhnw.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhueXpsZnpvc2VmcXZtcXFyaG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyNDM4MDQsImV4cCI6MjA4ODgxOTgwNH0.MQxKiR1T_cFlNFk_f4s3CkOOW8wMAawpkQf3Zh8PIJE';
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -15,6 +15,33 @@ const qtyInput = document.getElementById('orderQuantity');
 const tableBody = document.getElementById('orderListBody');
 const totalEl = document.getElementById('grandTotal');
 const imgEl = document.getElementById('cardImage');
+
+// Modal DOM Elementlari
+const customerModal = document.getElementById('customerModal');
+const customerPhoneInput = document.getElementById('customerPhone');
+const customerAddressInput = document.getElementById('customerAddress');
+const cancelModalBtn = document.getElementById('cancelModalBtn');
+const confirmModalBtn = document.getElementById('confirmModalBtn');
+
+// ==========================================
+// M² LARDAN DONA(DONA)GA O'GIRISH UCHUN LUG'AT (MAPPING)
+// ==========================================
+const pieceMapping = {
+    "Toshbaqa seriy rang": { default: 11 },
+    "Toshbaqa sariq rang": { default: 11 },
+    "Astana": { kichik: 11, katta: 11 },
+    "Samarqand": { kichik: 14, katta: 14 },
+    "Samarqand guli": { default: 11 },
+    "Fayz": { kichik: 12, katta: 25 },
+    "Samarqand och rang": { kichik: 14, katta: 14 },
+    "Ona bola malochnoy rang": { kichik: 12, katta: 12 },
+    "Ona bola oq rang": { kichik: 12, katta: 12 },
+    "30 ga 15": { default: 22 },
+    "Qabamchik": { kichik: 40, katta: 40 },
+    "30 ga 30 qizil rang": { default: 11 },
+    "30 ga 30 seriy rang": { default: 11 },
+    "Qo'smos": { kichik: 13, katta: 13 }
+};
 
 // Sahifa yuklanganda tizim mantiqini ishga tushirish
 document.addEventListener('DOMContentLoaded', async () => {
@@ -59,7 +86,7 @@ document.getElementById('prevBtn').onclick = () => {
     updateCardUI();
 };
 
-// Savatga mahsulot qo'shish va bazadagi joriy qoldiqni kamaytirish
+// Savatga mahsulot qo'shish
 document.getElementById('addToListBtn').onclick = async () => {
     const qty = parseFloat(qtyInput.value);
     const p = products[currentIndex];
@@ -149,13 +176,12 @@ function renderBasket() {
 // ==========================================
 // 80MM PRINTER UCHUN YANGILANGAN PROFESSIONAL CHEK MANTIQI
 // ==========================================
-function runReceiptPrint() {
+function runReceiptPrint(customerPhone, customerAddress) {
     const receiptArea = document.getElementById('receiptArea');
     const now = new Date();
     const dateStr = now.toLocaleDateString('uz-UZ');
     const timeStr = now.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' });
 
-    // Tizimdagi joriy foydalanuvchi ismini dinamik aniqlash
     const adminNameEl = document.getElementById('adminName');
     const cashierName = (adminNameEl && adminNameEl.innerText !== "Yuklanmoqda...") ? adminNameEl.innerText : window.translateText("Xodim");
 
@@ -175,6 +201,13 @@ function runReceiptPrint() {
             <div class="receipt-meta-row">
                 <span>${window.translateText("Kassir:")} ${cashierName}</span>
             </div>
+            <div class="receipt-divider" style="border-top: 1px dotted #000; margin: 4px 0;"></div>
+            <div class="receipt-meta-full">
+                <strong>${window.translateText("Tel:")}</strong> ${customerPhone}
+            </div>
+            <div class="receipt-meta-full">
+                <strong>${window.translateText("Manzil:")}</strong> ${customerAddress}
+            </div>
         </div>
         
         <div class="receipt-divider"></div>
@@ -192,6 +225,21 @@ function runReceiptPrint() {
 
     basket.forEach(item => {
         grandTotal += item.total;
+
+        // Dona (dona) larni hisoblash mantig'i
+        let piecesHtml = "";
+        const pMap = pieceMapping[item.name];
+        if (pMap) {
+            if (pMap.default) {
+                const totalPieces = Math.round(item.qty * pMap.default);
+                piecesHtml = `<div class="receipt-pieces">Yuklash uchun: ${totalPieces} dona</div>`;
+            } else {
+                const totalSmall = Math.round(item.qty * pMap.kichik);
+                const totalLarge = Math.round(item.qty * pMap.katta);
+                piecesHtml = `<div class="receipt-pieces">Yuklash uchun: ${totalSmall} ta kichik, ${totalLarge} ta katta</div>`;
+            }
+        }
+
         receiptHTML += `
             <div class="receipt-item">
                 <div class="receipt-item-name">${window.translateText(item.name)}</div>
@@ -199,6 +247,7 @@ function runReceiptPrint() {
                     <span>${item.qty.toLocaleString('uz-UZ')} m² x ${item.price.toLocaleString('uz-UZ')}</span>
                     <span style="font-weight: bold;">${item.total.toLocaleString('uz-UZ')}</span>
                 </div>
+                ${piecesHtml}
             </div>
         `;
     });
@@ -221,50 +270,69 @@ function runReceiptPrint() {
         </div>
     `;
 
-    // Chek hududini yangilash
     receiptArea.innerHTML = receiptHTML;
 
-    // Render kechikmasligi va oq ekran chiqmasligi uchun kafolatlangan vaqtinchalik pauza
     setTimeout(() => {
         window.print();
     }, 150);
 }
 
-// Buyurtmani yakunlash va orders jadvaliga yozish (Yangi avtomatik chek chiqarish qo'shildi)
-document.getElementById('placeOrderBtn').onclick = async () => {
+// ==========================================
+// MODAL VA BUYURTMANI YAKUNLASH LOGIKASI
+// ==========================================
+
+function openCustomerModal() {
     if (basket.length === 0) {
-        alert(window.translateText("Savat bo'sh!"));
+        alert(window.translateText("Savat bo'sh! Amalni bajarish uchun mahsulot qo'shing."));
+        return;
+    }
+    customerModal.style.display = 'flex';
+}
+
+function closeCustomerModal() {
+    customerModal.style.display = 'none';
+    customerPhoneInput.value = '';
+    customerAddressInput.value = '';
+}
+
+// Har ikki tugma ham mijoz ma'lumotlarini so'raydi
+document.getElementById('placeOrderBtn').onclick = openCustomerModal;
+document.getElementById('printBtn').onclick = openCustomerModal;
+
+// Modalni yopish
+cancelModalBtn.onclick = closeCustomerModal;
+
+// Modal tasdiqlanganda bazaga yozish va chek chiqarish
+confirmModalBtn.onclick = async () => {
+    const phone = customerPhoneInput.value.trim();
+    const address = customerAddressInput.value.trim();
+
+    if (!phone || !address) {
+        alert(window.translateText("Iltimos, telefon raqami va manzilni to'liq kiriting!"));
         return;
     }
 
+    // Orders jadvaliga yangi ustunlar bilan ma'lumot qo'shish
     const { error } = await supabaseClient.from('orders').insert(
         basket.map(i => ({
             paving_stone_name: i.name,
             paving_stone_price: i.price,
             paving_stone_square: i.qty,
-            paving_stone_full_price: i.total
+            paving_stone_full_price: i.total,
+            customer_phone_number: phone,      // Yangi ustun
+            customer_address: address          // Yangi ustun
         }))
     );
 
     if (error) {
         alert(window.translateText("Buyurtmani saqlashda xatolik: ") + error.message);
     } else {
-        alert(window.translateText("Buyurtma muvaffaqiyatli saqlandi! Chek chop etilmoqda..."));
+        // Muvaffaqiyatli saqlangach chekni chop etamiz
+        runReceiptPrint(phone, address);
 
-        // Muvaffaqiyatli yakunlangandan so'ng chek chop etish mantiqini ishga tushirish
-        runReceiptPrint();
-
-        // Savatni tozalash
+        // Jarayon yakunlangach tozalash
+        closeCustomerModal();
         basket = [];
         renderBasket();
     }
-};
-
-// Qo'shimcha qo'lda chop etish tugmasi mantiqi (Savat tozalanishidan oldin chop etish uchun)
-document.getElementById('printBtn').onclick = () => {
-    if (basket.length === 0) {
-        alert(window.translateText("Chop etish uchun savatda mahsulot yo'q!"));
-        return;
-    }
-    runReceiptPrint();
 };
