@@ -266,7 +266,7 @@ function runReceiptPrint(customerPhone, customerAddress) {
         
         <div class="receipt-footer">
             <p style="font-weight: bold; margin: 0 0 4px 0;">${window.translateText("Xaridingiz uchun rahmat!")}</p>
-            <p style="font-size: 10px; margin: 0; color: #555;">${window.translateText("Tel: +998993450011")}</p>
+            <p style="font-weight: bold; margin: 0 0 4px 0;">${window.translateText("Tel: +998993450011")}</p>
         </div>
     `;
 
