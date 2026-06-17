@@ -77,6 +77,25 @@
     color: var(--text-main);
 }
 
+/* Yangi qo'shilgan: Narxni qo'lda kiritish inputi dizayni */
+.manual-price-input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 2px solid var(--border-color);
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+    border-radius: 8px;
+    font-size: calc(16px * var(--font-scale));
+    font-weight: bold;
+    outline: none;
+    transition: 0.3s;
+    margin-top: 5px;
+}
+
+.manual-price-input:focus {
+    border-color: var(--primary-color);
+}
+
 .input-field label {
     display: block;
     margin-bottom: 10px;
@@ -85,7 +104,8 @@
     font-size: calc(14px * var(--font-scale));
 }
 
-.input-field input {
+.input-field input[type="text"],
+.input-field input[type="number"]:not(.manual-price-input) {
     width: 100%;
     padding: 15px;
     border: 2px solid var(--border-color);

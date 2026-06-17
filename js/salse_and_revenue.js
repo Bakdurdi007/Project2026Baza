@@ -9,7 +9,7 @@ let basket = [];
 
 // DOM Elementlari
 const titleEl = document.getElementById('cardTitle');
-const priceEl = document.getElementById('cardPrice');
+const priceInputEl = document.getElementById('cardPrice'); // O'zgartirilgan: Input element
 const stockEl = document.getElementById('cardStock');
 const qtyInput = document.getElementById('orderQuantity');
 const tableBody = document.getElementById('orderListBody');
@@ -65,7 +65,8 @@ function updateCardUI() {
     const p = products[currentIndex];
 
     titleEl.innerText = window.translateText(p.paving_stone_name);
-    priceEl.innerText = p.paving_stone_price.toLocaleString('uz-UZ') + " " + window.translateText("so'm");
+    // O'zgartirilgan: Bazadagi standart narx input value sifatida ko'rsatiladi, xodim uni o'zgartirishi mumkin
+    priceInputEl.value = p.paving_stone_price;
     stockEl.innerText = p.paving_stone_square.toLocaleString('uz-UZ') + " m²";
     qtyInput.value = "";
 
@@ -89,10 +90,16 @@ document.getElementById('prevBtn').onclick = () => {
 // Savatga mahsulot qo'shish
 document.getElementById('addToListBtn').onclick = async () => {
     const qty = parseFloat(qtyInput.value);
+    const manualPrice = parseFloat(priceInputEl.value); // O'zgartirilgan: kiritilgan yangi narx o'qilmoqda
     const p = products[currentIndex];
 
     if (!qty || qty <= 0) {
         alert(window.translateText("To'g'ri miqdorni kiriting!"));
+        return;
+    }
+    // Yangi qo'shilgan: kiritilgan narx tekshiruvi
+    if (!manualPrice || manualPrice <= 0) {
+        alert(window.translateText("Iltimos, mahsulot narxini to'g'ri kiriting!"));
         return;
     }
     if (qty > p.paving_stone_square) {
@@ -117,9 +124,9 @@ document.getElementById('addToListBtn').onclick = async () => {
     basket.push({
         id: p.id,
         name: p.paving_stone_name,
-        price: p.paving_stone_price,
+        price: manualPrice, // Kiritilgan narx savatga o'tadi
         qty: qty,
-        total: p.paving_stone_price * qty
+        total: manualPrice * qty // Kiritilgan narx bo'yicha summa hisoblanadi
     });
 
     updateCardUI();
@@ -316,11 +323,11 @@ confirmModalBtn.onclick = async () => {
     const { error } = await supabaseClient.from('orders').insert(
         basket.map(i => ({
             paving_stone_name: i.name,
-            paving_stone_price: i.price,
+            paving_stone_price: i.price, // Bazaga yangi kiritilgan narx bilan saqlanadi
             paving_stone_square: i.qty,
             paving_stone_full_price: i.total,
-            customer_phone_number: phone,      // Yangi ustun
-            customer_address: address          // Yangi ustun
+            customer_phone_number: phone,
+            customer_address: address
         }))
     );
 
