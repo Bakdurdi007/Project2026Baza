@@ -287,7 +287,7 @@ function runReceiptPrint(customerPhone, customerAddress) {
 // ==========================================
 // MODAL VA BUYURTMANI YAKUNLASH LOGIKASI
 // ==========================================
-
+// Hello
 function openCustomerModal() {
     if (basket.length === 0) {
         alert(window.translateText("Savat bo'sh! Amalni bajarish uchun mahsulot qo'shing."));
