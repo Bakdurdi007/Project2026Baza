@@ -3,6 +3,12 @@ const SUPABASE_URL = 'https://xnyzlfzosefqvmqqrhnw.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhueXpsZnpvc2VmcXZtcXFyaG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyNDM4MDQsImV4cCI6MjA4ODgxOTgwNH0.MQxKiR1T_cFlNFk_f4s3CkOOW8wMAawpkQf3Zh8PIJE';
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+// ==========================================
+// TELEGRAM BOT SOZLAMALARI
+// ==========================================
+const TELEGRAM_BOT_TOKEN = '8942959337:AAGJifz_GCmc3zlxvD3pWAtMFH7ZpdIQUmg';
+const TELEGRAM_CHAT_ID = '57387793'; // Xursand og'a
+
 let products = [];
 let currentIndex = 0;
 let basket = [];
@@ -309,7 +315,7 @@ document.getElementById('printBtn').onclick = openCustomerModal;
 // Modalni yopish
 cancelModalBtn.onclick = closeCustomerModal;
 
-// Modal tasdiqlanganda bazaga yozish va chek chiqarish
+// Modal tasdiqlanganda bazaga yozish, chek chiqarish va Telegramga yozish
 confirmModalBtn.onclick = async () => {
     const phone = customerPhoneInput.value.trim();
     const address = customerAddressInput.value.trim();
@@ -319,11 +325,15 @@ confirmModalBtn.onclick = async () => {
         return;
     }
 
+    // Har bir bosilganda 2 marta jo'natib yubormasligi uchun tugmani vaqtincha faoliyatsiz qilamiz
+    confirmModalBtn.disabled = true;
+    confirmModalBtn.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Kuting...';
+
     // Orders jadvaliga yangi ustunlar bilan ma'lumot qo'shish
     const { error } = await supabaseClient.from('orders').insert(
         basket.map(i => ({
             paving_stone_name: i.name,
-            paving_stone_price: i.price, // Bazaga yangi kiritilgan narx bilan saqlanadi
+            paving_stone_price: i.price,
             paving_stone_square: i.qty,
             paving_stone_full_price: i.total,
             customer_phone_number: phone,
@@ -334,12 +344,76 @@ confirmModalBtn.onclick = async () => {
     if (error) {
         alert(window.translateText("Buyurtmani saqlashda xatolik: ") + error.message);
     } else {
-        // Muvaffaqiyatli saqlangach chekni chop etamiz
+        // 1. Muvaffaqiyatli saqlangach chekni chop etamiz
         runReceiptPrint(phone, address);
 
-        // Jarayon yakunlangach tozalash
+        // 2. Telegramga bildirishnoma jo'natamiz (fonda ishlashi uchun await qo'ymasangiz ham bo'ladi)
+        sendTelegramNotification(phone, address);
+
+        // 3. Jarayon yakunlangach tozalash
         closeCustomerModal();
         basket = [];
         renderBasket();
     }
+
+    // Tugmani asl holatiga qaytarish
+    confirmModalBtn.disabled = false;
+    confirmModalBtn.innerHTML = '<i class="ph ph-check-circle"></i> <span data-translate="Tasdiqlash va Chop etish">Tasdiqlash va Chop etish</span>';
 };
+
+
+// ==========================================
+// TELEGRAMGA XABAR YUBORISH MANTIQI
+// ==========================================
+async function sendTelegramNotification(phone, address) {
+    if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
+        console.warn("Telegram bot sozlamalari kiritilmagan.");
+        return;
+    }
+
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('uz-UZ');
+    const timeStr = now.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' });
+    const txtSom = window.translateText ? window.translateText("so'm") : "so'm";
+
+    let message = `🧾 <b>YANGI BUYURTMA (SOTUV)</b>\n\n`;
+    message += `📅 <b>Sana:</b> ${dateStr} ${timeStr}\n`;
+    message += `📞 <b>Tel:</b> ${phone}\n`;
+    message += `📍 <b>Manzil:</b> ${address}\n\n`;
+    message += `📦 <b>Mahsulotlar:</b>\n`;
+
+    let grandTotal = 0;
+
+    basket.forEach((item, index) => {
+        grandTotal += item.total;
+        message += `${index + 1}. <b>${item.name}</b>\n`;
+        message += `   ${item.qty.toLocaleString('uz-UZ')} m² x ${item.price.toLocaleString('uz-UZ')} = ${item.total.toLocaleString('uz-UZ')} ${txtSom}\n`;
+    });
+
+    message += `\n💰 <b>UMUMIY SUMMA:</b> ${grandTotal.toLocaleString('uz-UZ')} ${txtSom}`;
+
+    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                chat_id: TELEGRAM_CHAT_ID,
+                text: message,
+                parse_mode: 'HTML'
+            })
+        });
+
+        const data = await response.json();
+        if (!data.ok) {
+            console.error("Telegramga yuborishda xatolik:", data.description);
+        } else {
+            console.log("Telegramga xabar muvaffaqiyatli yuborildi.");
+        }
+    } catch (error) {
+        console.error("Telegram API tarmog'ida xatolik:", error);
+    }
+}
