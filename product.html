@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="Sotuv va Tushumlar | Tizim 2026">Yangi maxsulot | Tizim 2026</title>
+    <link rel="stylesheet" href="css/admin_style.css">
+    <link rel="stylesheet" href="css/product.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="js/guard.js"></script>
+</head>
+<body>
+
+<div class="app-layout">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2 class="brand-title" data-translate="Tizim 2026">Tizim 2026</h2>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="admin_panel.html" class="menu-item"><i class="ph ph-squares-four"></i> <span data-translate="Bosh sahifa">Bosh sahifa</span></a>
+            <a href="warehouse_control.html" class="menu-item"><i class="ph ph-package"></i> <span data-translate="Ombor nazorati">Ombor nazorati</span></a>
+            <a href="product.html" class="menu-item active"><i class="ph ph-tag"></i> <span data-translate="Yangi maxsulot">Yangi maxsulot</span></a>
+            <a href="production.html" class="menu-item"><i class="ph ph-factory"></i> <span data-translate="Ishlab chiqarish">Ishlab chiqarish</span></a>
+            <a href="sales_and_revenue.html" class="menu-item"><i class="ph ph-shopping-cart"></i> <span data-translate="Sotuv va Tushumlar">Sotuv va Tushumlar</span></a>
+            <a href="reports.html" class="menu-item"><i class="ph ph-chart-line-up"></i> <span data-translate="Hisobotlar">Hisobotlar</span></a>
+        </nav>
+        <div class="sidebar-footer">
+            <button id="logoutBtn" class="menu-item logout-btn"><i class="ph ph-sign-out"></i> <span data-translate="Chiqish">Chiqish</span></button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <h1 class="page-title" data-translate="Sotuv va tushumlar bo'limi">Maxsulotlar nazorati bo'lmi</h1>
+            <div class="topbar-actions">
+                <button id="fontDecrease" class="badge-btn" title="Shriftni kichiklashtirish">A-</button>
+                <button id="fontIncrease" class="badge-btn" title="Shriftni kattalashtirish">A+</button>
+
+                <button id="langToggle" class="badge-btn" title="Lotin / Кирилл">
+                    <i class="ph ph-translate" id="langIcon"></i>
+                </button>
+
+                <button id="themeToggle" class="badge-btn">
+                    <i class="ph ph-moon" id="themeIcon"></i>
+                    <span id="themeText" data-translate="Dark Mode">Dark Mode</span>
+                </button>
+                <div class="user-badge">
+                    <span class="status-dot"></span>
+                    <span id="adminName" data-translate="Yuklanmoqda...">Yuklanmoqda...</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            <div class="product-container">
+
+                <!-- Chap Ustun (Yangi maxsulot qo'shish formasi - 30%) -->
+                <div class="section-card left-column">
+                    <div class="card-header">
+                        <h3 id="formTitle"><i class="ph ph-plus-circle"></i> <span data-translate="Yangi maxsulot qo'shish">Yangi maxsulot qo'shish</span></h3>
+                    </div>
+
+                    <div class="form-wrapper">
+                        <div class="input-field">
+                            <label data-translate="Maxsulot nomi">Maxsulot nomi <span style="color:red">*</span></label>
+                            <input type="text" id="productName" placeholder="Masalan: Oq tosh" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label data-translate="Maxsulot o'lchami">Maxsulot miqdori (kg, m², m, dona) <span style="color:red">*</span></label>
+                            <input type="text" id="productMassa" placeholder="Masalan: 1000" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label data-translate="Maxsulot narxi">Maxsulot narxi (so'm) <span style="color:red">*</span></label>
+                            <input type="number" id="productPrice" placeholder="0" required>
+                        </div>
+
+                        <button id="addProductBtn" class="btn-fill form-submit-btn">
+                            <i class="ph ph-check-circle"></i> <span id="btnText" data-translate="Maxsulotni saqlash">Maxsulotni saqlash</span>
+                        </button>
+
+                        <button id="cancelEditBtn" class="btn-fill cancel-btn" style="display: none;">
+                            <i class="ph ph-x-circle"></i> <span data-translate="Tahrirlashni bekor qilish">Tahrirlashni bekor qilish</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- O'ng Ustun (Jadval - 70%) -->
+                <div class="section-card right-column">
+                    <div class="card-header">
+                        <h3><i class="ph ph-table"></i> <span data-translate="Maxsulotlar ro'yxati">Maxsulotlar ro'yxati</span></h3>
+                    </div>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th data-translate="ID">ID</th>
+                                <th data-translate="Sana">Sana</th>
+                                <th data-translate="Nomi">Nomi</th>
+                                <th data-translate="Miqdori">Miqdori</th>
+                                <th data-translate="Narxi">Narxi</th>
+                                <th data-translate="Amallar">Amallar</th>
+                            </tr>
+                            </thead>
+                            <tbody id="productsTableBody">
+                            <!-- JS orqali jadval to'ldiriladi -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/admin_script.js"></script>
+<script src="js/product.js"></script>
+</body>
+</html>

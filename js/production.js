@@ -23,7 +23,15 @@ const recipes = {
     "30 ga 15": { "Oq sement": 3, "Qora sement": 12, "Oq tosh": 19, "Qora tosh": 23, "Kraska Titan": 0.005, "Kraska Saja": 0.055, "Ximikat": 0.0345 },
     "Qabamchik": { "Oq sement": 5.4, "Qora sement": 9.35, "Oq tosh": 17, "Qora tosh": 23, "Kraska Titan": 0.01, "Kraska Saja": 0.0107, "Ximikat": 0.0345 },
     "30 ga 30 qizil rang": { "Qora sement": 15, "Oq tosh": 19, "Qora tosh": 23, "Kraska 130": 0.24, "Ximikat": 0.0345 },
-    "30 ga 30 seriy rang": { "Qora sement": 15, "Oq tosh": 19, "Qora tosh": 23, "Ximikat": 0.0345 }
+    "30 ga 30 seriy rang": { "Qora sement": 15, "Oq tosh": 19, "Qora tosh": 23, "Ximikat": 0.0345 },
+
+    // YANGLI QO'SHILGAN RETSEPTLAR (1 kv.m uchun hisoblangan)
+    "Shaxmat 40x40": { "Oq sement": 1.75, "Qora sement": 19.1, "Oq tosh": 13.5, "Qora tosh": 18, "Kraska 750": 0.11, "Kraska Titan": 0.01, "Ximikat": 0.049 },
+    "Aka-uka 30x15 seriy": { "Qora sement": 5, "Oq tosh": 17, "Qora tosh": 23, "Kraska Saja": 0.022, "Ximikat": 0.0345 },
+    "Aka-uka 30x15 oq": { "Oq sement": 5.4, "Qora sement": 9.35, "Oq tosh": 17, "Qora tosh": 23, "Kraska Titan": 0.01, "Kraska Saja": 0.012, "Ximikat": 0.0345 },
+    "Ona bola qizil": { "Qora sement": 13, "Oq tosh": 12, "Qora tosh": 17, "Daryo qumi chaya": 3, "Kraska 750": 0.10125, "Kraska 130": 0.17, "Ximikat": 0.0345 },
+    "Terma panel 50x25": { "Oq sement": 5.25, "Oq tosh": 10.5, "Kraska Titan": 0.0035, "Penaplast": 8, "Metal ilgich": 16, "Ximikat": 0.010055 }, // Izoh: Penaplast va Ilgich 1 kv.m ga dona hisobida
+    "30x30 oq": { "Oq sement": 4.1, "Qora sement": 7, "Oq tosh": 11, "Qora tosh": 23, "Kraska Titan": 0.006, "Ximikat": 0.0345 }
 };
 
 // 3. Bazadagi ustun nomlari xaritasi
@@ -31,7 +39,9 @@ const dbColumnsMap = {
     "Oq sement": "oq_sement", "Qora sement": "qora_sement", "Oq tosh": "oq_tosh",
     "Qora tosh": "qora_tosh", "Kraska 750": "kraska_750", "Kraska 313": "kraska_313",
     "Kraska Titan": "kraska_titan", "Kraska 130": "kraska_130", "Kraska 315": "kraska_315",
-    "Kraska 686": "kraska_686", "Kraska Saja": "kraska_saja", "Ximikat": "ximikat"
+    "Kraska 686": "kraska_686", "Kraska Saja": "kraska_saja", "Ximikat": "ximikat",
+    // Yangi qo'shilgan moddalar ustunlari xaritasi (bazada mos nomlar bo'lishi kerak):
+    "Daryo qumi chaya": "daryo_qumi_chaya", "Penaplast": "penaplast", "Metal ilgich": "metal_ilgich"
 };
 
 let globalHistoryData = [];
@@ -197,7 +207,7 @@ function openInfoModal(id) {
     listContainer.innerHTML = '';
 
     if (historyRow) {
-        const unitKg = window.translateText("kg");
+        const unitKg = window.translateText("kg / dona");
         for (const [key, dbCol] of Object.entries(dbColumnsMap)) {
             const amount = historyRow[dbCol];
             if (amount && amount > 0) {
@@ -217,7 +227,7 @@ function openWarningModal(shortages) {
     const listContainer = document.getElementById('warningMaterialList');
     listContainer.innerHTML = '';
     const txtMissing = window.translateText("yetishmayapti");
-    const unitKg = window.translateText("kg");
+    const unitKg = window.translateText("kg / dona");
 
     shortages.forEach(item => {
         const translatedMatName = window.translateText(item.name);

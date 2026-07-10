@@ -5,10 +5,47 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_
 
 const materialForm = document.getElementById('materialForm');
 const materialsTableBody = document.getElementById('materialsTableBody');
+const matNameSelect = document.getElementById('mat_name');
 
-// Sahifa yuklanganda products_history jadvalidan tarixni ko'rsatish
-document.addEventListener('DOMContentLoaded', fetchHistory);
+// Sahifa yuklanganda bazadan ma'lumotlarni chaqirish
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadProductNames(); // Select uchun maxsulot nomlarini yuklash
+    await fetchHistory();     // Jadval uchun tarixni yuklash
+});
 
+// Products jadvalidan maxsulot nomlarini olib kelish funksiyasi
+async function loadProductNames() {
+    try {
+        const { data, error } = await supabaseClient
+            .from('products')
+            .select('product_name');
+
+        if (error) {
+            console.error("Maxsulot nomlarini yuklashda xatolik:", error);
+            return;
+        }
+
+        // Dastlab "Tanlang..." option'ini saqlab, qolganini tozalash
+        matNameSelect.innerHTML = '<option value="" disabled selected data-translate="Tanlang...">Tanlang...</option>';
+
+        if (data && data.length > 0) {
+            // Bir xil nomlar qaytarilmasligi uchun Set orqali filtrlaymiz
+            const uniqueNames = [...new Set(data.map(item => item.product_name))];
+
+            uniqueNames.forEach(name => {
+                const option = document.createElement('option');
+                option.value = name;
+                option.textContent = name;
+                option.setAttribute('data-translate', name); // Ko'p tilli tizim ishlashi uchun
+                matNameSelect.appendChild(option);
+            });
+        }
+    } catch (err) {
+        console.error('Xatolik:', err);
+    }
+}
+
+// Tarixni bazadan olib kelish
 async function fetchHistory() {
     const { data, error } = await supabaseClient
         .from('products_history')
@@ -31,22 +68,23 @@ function renderHistoryTable(data) {
         materialsTableBody.innerHTML = `
             <tr>
                 <td colspan="6" style="text-align:center;" data-translate="Hozircha xomashyo kiritilmagan">
-                    ${window.translateText("Hozircha xomashyo kiritilmagan")}
+                    ${window.translateText ? window.translateText("Hozircha xomashyo kiritilmagan") : "Hozircha xomashyo kiritilmagan"}
                 </td>
             </tr>`;
         return;
     }
 
-    const txtSom = window.translateText("so'm");
-    const txtKg = window.translateText("kg");
+    const txtSom = window.translateText ? window.translateText("so'm") : "so'm";
+    const txtKg = window.translateText ? window.translateText("kg") : "kg";
 
     data.forEach(item => {
         const date = item.created_at ? new Date(item.created_at).toLocaleString('uz-UZ') : '---';
+        const translatedName = window.translateText ? window.translateText(item.product_name) : item.product_name;
 
         const row = `
             <tr>
                 <td>${item.id}</td>
-                <td><strong>${window.translateText(item.product_name)}</strong></td>
+                <td><strong>${translatedName}</strong></td>
                 <td><span class="text-massa">${item.product_massa.toLocaleString('uz-UZ')} ${txtKg}</span></td>
                 <td>${Number(item.product_price_per_1kg).toLocaleString('uz-UZ')} ${txtSom}</td>
                 <td>${Number(item.product_price).toLocaleString('uz-UZ')} ${txtSom}</td>
@@ -70,7 +108,7 @@ materialForm.addEventListener('submit', async (e) => {
     const totalPrice = Math.round(massa * pricePerKg);
 
     saveBtn.disabled = true;
-    saveBtn.textContent = window.translateText("Saqlanmoqda...");
+    saveBtn.textContent = window.translateText ? window.translateText("Saqlanmoqda...") : "Saqlanmoqda...";
 
     try {
         // A. Tarixga yozish (products_history jadvaliga)
@@ -85,7 +123,7 @@ materialForm.addEventListener('submit', async (e) => {
 
         if (historyError) throw historyError;
 
-// B. Umumiy qoldiqni yangilash yoki yangi qo'shish (products jadvalida)
+        // B. Umumiy qoldiqni yangilash yoki yangi qo'shish (products jadvalida)
         const { data: current, error: fetchError } = await supabaseClient
             .from('products')
             .select('*')
@@ -123,13 +161,13 @@ materialForm.addEventListener('submit', async (e) => {
 
         materialForm.reset();
         await fetchHistory();
-        alert(window.translateText("Ma'lumotlar muvaffaqiyatli saqlandi!"));
+        alert(window.translateText ? window.translateText("Ma'lumotlar muvaffaqiyatli saqlandi!") : "Ma'lumotlar muvaffaqiyatli saqlandi!");
 
     } catch (err) {
         console.error("Xatolik:", err);
-        alert(window.translateText("Xatolik yuz berdi!"));
+        alert(window.translateText ? window.translateText("Xatolik yuz berdi!") : "Xatolik yuz berdi!");
     } finally {
         saveBtn.disabled = false;
-        saveBtn.textContent = window.translateText("Saqlash hamda ro'yxatga qo'shish");
+        saveBtn.textContent = window.translateText ? window.translateText("Saqlash hamda ro'yxatga qo'shish") : "Saqlash hamda ro'yxatga qo'shish";
     }
 });

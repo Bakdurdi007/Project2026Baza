@@ -1,0 +1,171 @@
+/* ==========================================================================
+   YANGI MAHSULOT BO'LIMI STILLARI
+   ========================================================================== */
+.product-container {
+    display: grid;
+    grid-template-columns: 30% calc(70% - 30px); /* Kenglikni 30% ga 70% nisbatda bo'lish */
+    gap: 30px;
+    align-items: start;
+    padding: 20px;
+    padding-bottom: 40px;
+}
+
+.section-card {
+    background: var(--bg-surface, #ffffff);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    padding: 30px;
+    border: 1px solid var(--border-color, #e5e7eb);
+    min-height: 450px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--border-color, #e5e7eb);
+    padding-bottom: 15px;
+}
+
+.card-header h3 {
+    margin: 0;
+    font-size: calc(18px * var(--font-scale, 1));
+    color: var(--text-main, #111827);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-field {
+    margin-bottom: 20px;
+}
+
+.input-field label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-main, #111827);
+    font-size: calc(14px * var(--font-scale, 1));
+}
+
+.input-field input {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid var(--border-color, #e5e7eb);
+    background-color: var(--bg-surface, #ffffff);
+    color: var(--text-main, #111827);
+    border-radius: 10px;
+    font-size: calc(16px * var(--font-scale, 1));
+    transition: all 0.3s ease;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.input-field input:focus {
+    border-color: var(--primary-color, #3b82f6);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-submit-btn, .cancel-btn {
+    width: 100%;
+    margin-top: 15px;
+    padding: 16px;
+    background: var(--primary-color, #3b82f6);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: calc(16px * var(--font-scale, 1));
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s, filter 0.2s;
+}
+
+.form-submit-btn:hover {
+    filter: brightness(0.9);
+    transform: translateY(-2px);
+}
+
+.cancel-btn {
+    background: #6b7280; /* Kulrang fon */
+    margin-top: 10px;
+}
+
+.cancel-btn:hover {
+    background: #4b5563;
+}
+
+/* Jadval Stillari */
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    padding: 15px;
+    font-size: calc(13px * var(--font-scale, 1));
+    color: var(--text-muted, #6b7280);
+    border-bottom: 2px solid var(--border-color, #e5e7eb);
+    background-color: var(--bg-body, #f9fafb);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+td {
+    padding: 15px;
+    font-size: calc(14px * var(--font-scale, 1));
+    border-bottom: 1px solid var(--border-color, #e5e7eb);
+    color: var(--text-main, #111827);
+    font-weight: 500;
+}
+
+tr:hover {
+    background-color: var(--bg-body, #f9fafb);
+}
+
+/* Amallar tugmalari (Edit/Delete) */
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 22px;
+    margin-right: 12px;
+    transition: transform 0.2s;
+    vertical-align: middle;
+}
+
+.action-btn:hover {
+    transform: scale(1.1);
+}
+
+.edit-btn {
+    color: #3b82f6; /* Moviy */
+}
+
+.delete-btn {
+    color: #ef4444; /* Qizil */
+}
+
+/* Ekran kichrayganda ustunlarni pastga tushirish */
+@media (max-width: 992px) {
+    .product-container {
+        grid-template-columns: 1fr;
+    }
+    .section-card {
+        min-height: auto;
+    }
+}
