@@ -363,7 +363,7 @@ confirmModalBtn.onclick = async () => {
 
 
 // ==========================================
-// TELEGRAMGA XABAR YUBORISH MANTIQI
+// TELEGRAMGA XABAR YUBORISH MANTIQI.
 // ==========================================
 async function sendTelegramNotification(phone, address) {
     if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
