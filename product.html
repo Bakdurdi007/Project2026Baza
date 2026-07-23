@@ -54,36 +54,81 @@
         <div class="content-wrapper">
             <div class="product-container">
 
-                <!-- Chap Ustun (Yangi maxsulot qo'shish formasi - 30%) -->
-                <div class="section-card left-column">
-                    <div class="card-header">
-                        <h3 id="formTitle"><i class="ph ph-plus-circle"></i> <span data-translate="Yangi maxsulot qo'shish">Yangi maxsulot qo'shish</span></h3>
+                <!-- Chap Ustun (Ikkita forma uchun wrapper - 30%) -->
+                <div class="left-column-wrapper">
+
+                    <!-- 1-Forma: Xomashyo / Maxsulot qo'shish -->
+                    <div class="section-card left-column">
+                        <div class="card-header">
+                            <h3 id="formTitle"><i class="ph ph-plus-circle"></i> <span data-translate="Yangi maxsulot qo'shish">Yangi maxsulot qo'shish</span></h3>
+                        </div>
+
+                        <div class="form-wrapper">
+                            <div class="input-field">
+                                <label data-translate="Maxsulot nomi">Maxsulot nomi <span style="color:red">*</span></label>
+                                <input type="text" id="productName" placeholder="Masalan: Oq tosh" required>
+                            </div>
+
+                            <div class="input-field">
+                                <label data-translate="Maxsulot o'lchami">Maxsulot miqdori (kg, m², m, dona) <span style="color:red">*</span></label>
+                                <input type="text" id="productMassa" placeholder="Masalan: 1000" required>
+                            </div>
+
+                            <div class="input-field">
+                                <label data-translate="Maxsulot narxi">Maxsulot narxi (so'm) <span style="color:red">*</span></label>
+                                <input type="number" id="productPrice" placeholder="0" required>
+                            </div>
+
+                            <button id="addProductBtn" class="btn-fill form-submit-btn">
+                                <i class="ph ph-check-circle"></i> <span id="btnText" data-translate="Maxsulotni saqlash">Maxsulotni saqlash</span>
+                            </button>
+
+                            <button id="cancelEditBtn" class="btn-fill cancel-btn" style="display: none;">
+                                <i class="ph ph-x-circle"></i> <span data-translate="Tahrirlashni bekor qilish">Tahrirlashni bekor qilish</span>
+                            </button>
+                        </div>
                     </div>
 
-                    <div class="form-wrapper">
-                        <div class="input-field">
-                            <label data-translate="Maxsulot nomi">Maxsulot nomi <span style="color:red">*</span></label>
-                            <input type="text" id="productName" placeholder="Masalan: Oq tosh" required>
+                    <!-- 2-Forma: Tayyor mahsulot (paving_stones) qo'shish -->
+                    <div class="section-card left-column">
+                        <div class="card-header">
+                            <h3><i class="ph ph-stack"></i> <span data-translate="Tayyor maxsulot (Omborga)">Tayyor maxsulot (Omborga)</span></h3>
                         </div>
 
-                        <div class="input-field">
-                            <label data-translate="Maxsulot o'lchami">Maxsulot miqdori (kg, m², m, dona) <span style="color:red">*</span></label>
-                            <input type="text" id="productMassa" placeholder="Masalan: 1000" required>
+                        <div class="form-wrapper">
+                            <div class="input-field">
+                                <label data-translate="Maxsulot turi">Maxsulot turi <span style="color:red">*</span></label>
+                                <select id="pavingStoneName" class="custom-select" required>
+                                    <option value="" disabled selected data-translate="Tanlang...">Tanlang...</option>
+                                    <option value="Lotoq seriy">Lotoq seriy</option>
+                                    <option value="Lotoq oq">Lotoq oq</option>
+                                    <option value="Bordyor 750">Bordyor 750</option>
+                                    <option value="Bordyor oq">Bordyor oq</option>
+                                    <option value="Versachchi">Versachchi</option>
+                                    <option value="Luk 62x62">Luk 62x62</option>
+                                    <option value="Luk doira 50x50">Luk doira 50x50</option>
+                                    <option value="Luk 43x33">Luk 43x33</option>
+                                    <option value="Luk 50x50">Luk 50x50</option>
+                                    <option value="Luk 40x40">Luk 40x40</option>
+                                </select>
+                            </div>
+
+                            <div class="input-field">
+                                <label data-translate="Miqdori">Miqdori <span style="color:red">*</span></label>
+                                <input type="number" step="0.01" id="pavingStoneSquare" placeholder="0" required>
+                            </div>
+
+                            <div class="input-field">
+                                <label data-translate="Narxi (so'm)">Narxi (so'm) <span style="color:red">*</span></label>
+                                <input type="number" id="pavingStonePrice" placeholder="0" required>
+                            </div>
+
+                            <button id="addDirectProductBtn" class="btn-fill form-submit-btn" style="background-color: #10b981;">
+                                <i class="ph ph-database"></i> <span data-translate="Omborga qo'shish">Omborga qo'shish</span>
+                            </button>
                         </div>
-
-                        <div class="input-field">
-                            <label data-translate="Maxsulot narxi">Maxsulot narxi (so'm) <span style="color:red">*</span></label>
-                            <input type="number" id="productPrice" placeholder="0" required>
-                        </div>
-
-                        <button id="addProductBtn" class="btn-fill form-submit-btn">
-                            <i class="ph ph-check-circle"></i> <span id="btnText" data-translate="Maxsulotni saqlash">Maxsulotni saqlash</span>
-                        </button>
-
-                        <button id="cancelEditBtn" class="btn-fill cancel-btn" style="display: none;">
-                            <i class="ph ph-x-circle"></i> <span data-translate="Tahrirlashni bekor qilish">Tahrirlashni bekor qilish</span>
-                        </button>
                     </div>
+
                 </div>
 
                 <!-- O'ng Ustun (Jadval - 70%) -->
